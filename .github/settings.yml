@@ -1,0 +1,8 @@
+---
+#
+# Ansible managed
+#
+repository:
+  description: Configure HashiCorp Vault on your system.
+  homepage: https://robertdebock.nl/
+  topics: vaultconfiguration, ansible, molecule, tox, playbook, hacktoberfest
