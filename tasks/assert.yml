@@ -309,9 +309,6 @@
   when:
     - vault_configuration_listener_tcp.profiling is defined
 
-
-
-
 - name: Test if vault_configuration_storage_raft is set correctly
   ansible.builtin.assert:
     that:
@@ -539,9 +536,6 @@
   when:
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.autopilot_redundancy_zone is defined
-
-
-
 
 - name: Test if vault_configuration_seal_awskms is set correctly
   ansible.builtin.assert:
