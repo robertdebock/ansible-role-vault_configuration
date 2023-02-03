@@ -74,17 +74,17 @@ vault_configuration_storage_raft:
   trailing_logs: 10000
   snapshot_threshold: 8192
   retry_join:
-    leader_api_addr: "http://127.0.0.1:8200"
-    auto_join: ""
-    auto_join_scheme: "https"
-    auto_join_port: 8200
-    leader_tls_servername: ""
-    leader_ca_cert_file: ""
-    leader_client_cert_file: ""
-    leader_client_key_file: ""
-    leader_ca_cert: ""
-    leader_client_cert: ""
-    leader_client_key: ""
+    - leader_api_addr: "http://127.0.0.1:8200"
+      auto_join: ""
+      auto_join_scheme: "https"
+      auto_join_port: 8200
+      leader_tls_servername: ""
+      leader_ca_cert_file: ""
+      leader_client_cert_file: ""
+      leader_client_key_file: ""
+      leader_ca_cert: ""
+      leader_client_cert: ""
+      leader_client_key: ""
   retry_join_as_non_voter: no
   max_entry_size: 1048576
   autopilot_reconcile_interval: "10s"

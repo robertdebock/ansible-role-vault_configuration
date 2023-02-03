@@ -365,36 +365,45 @@
 - name: Test if vault_configuration_storage_raft.retry_join is set correctly
   ansible.builtin.assert:
     that:
-      - vault_configuration_storage_raft.retry_join is mapping
+      - vault_configuration_storage_raft.retry_join is iterable
     quiet: yes
   when:
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.retry_join is defined
 
-- name: Test if vault_configuration_storage_raft.retry_join.leader_api_addr is set correctly
+- name: Test if item.leader_api_addr is set correctly
   ansible.builtin.assert:
     that:
-      - vault_configuration_storage_raft.retry_join.leader_api_addr is string
+      - item.leader_api_addr is string
     quiet: yes
+  loop: "{{ vault_configuration_storage_raft.retry_join }}"
+  loop_control:
+    label: "{{ item.leader_api_addr }}"
   when:
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.retry_join is defined
 
-- name: Test if vault_configuration_storage_raft.retry_join.auto_join is set correctly
+- name: Test if item.auto_join is set correctly
   ansible.builtin.assert:
     that:
-      - vault_configuration_storage_raft.retry_join.auto_join is string
+      - item.auto_join is string
     quiet: yes
+  loop: "{{ vault_configuration_storage_raft.retry_join }}"
+  loop_control:
+    label: "{{ item.auto_join }}"
   when:
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.retry_join is defined
 
-- name: Test if vault_configuration_storage_raft.retry_join.auto_join_scheme is set correctly
+- name: Test if item.auto_join_scheme is set correctly
   ansible.builtin.assert:
     that:
-      - vault_configuration_storage_raft.retry_join.auto_join_scheme is string
-      - vault_configuration_storage_raft.retry_join.auto_join_scheme in [ "http", "https" ]
+      - item.auto_join_scheme is string
+      - item.auto_join_scheme in [ "http", "https" ]
     quiet: yes
+  loop: "{{ vault_configuration_storage_raft.retry_join }}"
+  loop_control:
+    label: "{{ item.auto_join_scheme }}"
   when:
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.retry_join is defined
@@ -402,85 +411,108 @@
 - name: Test if vault_configuration_storage_raft.retry_join.auto_join_port is set correctly
   ansible.builtin.assert:
     that:
-      - vault_configuration_storage_raft.retry_join.auto_join_port is defined
-      - vault_configuration_storage_raft.retry_join.auto_join_port is number
-      - vault_configuration_storage_raft.retry_join.auto_join_port >= 0
-      - vault_configuration_storage_raft.retry_join.auto_join_port <= 64536
+      - item.auto_join_port is defined
+      - item.auto_join_port is number
+      - item.auto_join_port >= 0
+      - item.auto_join_port <= 64536
     quiet: yes
+  loop: "{{ vault_configuration_storage_raft.retry_join }}"
+  loop_control:
+    label: "{{ item.auto_join_port }}"
   when:
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.retry_join is defined
 
-- name: Test if vault_configuration_storage_raft.retry_join.leader_tls_servername is set correctly
+- name: Test if item.leader_tls_servername is set correctly
   ansible.builtin.assert:
     that:
-      - vault_configuration_storage_raft.retry_join.leader_tls_servername is string
+      - item.leader_tls_servername is string
     quiet: yes
+  loop: "{{ vault_configuration_storage_raft.retry_join }}"
+  loop_control:
+    label: "{{ item.leader_tls_servername }}"
   when:
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.retry_join is defined
-    - vault_configuration_storage_raft.retry_join.leader_tls_servername is defined
+    - item.leader_tls_servername is defined
 
-- name: Test if vault_configuration_storage_raft.retry_join.leader_ca_cert_file is set correctly
+- name: Test if item.leader_ca_cert_file is set correctly
   ansible.builtin.assert:
     that:
-      - vault_configuration_storage_raft.retry_join.leader_ca_cert_file is string
+      - item.leader_ca_cert_file is string
     quiet: yes
+  loop: "{{ vault_configuration_storage_raft.retry_join }}"
+  loop_control:
+    label: "{{ item.leader_ca_cert_file }}"
   when:
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.retry_join is defined
-    - vault_configuration_storage_raft.retry_join.leader_ca_cert_file is defined
+    - item.leader_ca_cert_file is defined
 
-- name: Test if vault_configuration_storage_raft.retry_join.leader_client_cert_file is set correctly
+- name: Test if item.leader_client_cert_file is set correctly
   ansible.builtin.assert:
     that:
-      - vault_configuration_storage_raft.retry_join.leader_client_cert_file is string
+      - item.leader_client_cert_file is string
     quiet: yes
+  loop: "{{ vault_configuration_storage_raft.retry_join }}"
+  loop_control:
+    label: "{{ item.leader_client_cert_file }}"
   when:
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.retry_join is defined
-    - vault_configuration_storage_raft.retry_join.leader_client_cert_file is defined
+    - item.leader_client_cert_file is defined
 
-- name: Test if vault_configuration_storage_raft.retry_join.leader_client_key_file is set correctly
+- name: Test if item.leader_client_key_file is set correctly
   ansible.builtin.assert:
     that:
-      - vault_configuration_storage_raft.retry_join.leader_client_key_file is string
+      - item.leader_client_key_file is string
     quiet: yes
+  loop: "{{ vault_configuration_storage_raft.retry_join }}"
+  loop_control:
+    label: "{{ item.leader_client_key_file }}"
   when:
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.retry_join is defined
-      - vault_configuration_storage_raft.retry_join.leader_client_key_file is defined
+    - item.leader_client_key_file is defined
 
-- name: Test if vault_configuration_storage_raft.retry_join.leader_ca_cert is set correctly
+- name: Test if item.leader_ca_cert is set correctly
   ansible.builtin.assert:
     that:
-      - vault_configuration_storage_raft.retry_join.leader_ca_cert is string
+      - item.leader_ca_cert is string
     quiet: yes
+  loop: "{{ vault_configuration_storage_raft.retry_join }}"
+  loop_control:
+    label: "{{ item.leader_ca_cert }}"
   when:
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.retry_join is defined
-    - vault_configuration_storage_raft.retry_join.leader_ca_cert is defined
+    - item.leader_ca_cert is defined
 
-
-- name: Test if vault_configuration_storage_raft.retry_join.leader_client_cert is set correctly
+- name: Test if item.leader_client_cert is set correctly
   ansible.builtin.assert:
     that:
-      - vault_configuration_storage_raft.retry_join.leader_client_cert is string
+      - item.leader_client_cert is string
     quiet: yes
+  loop: "{{ vault_configuration_storage_raft.leader_client_cert }}"
+  loop_control:
+    label: "{{ item.leader_client_cert }}"
   when:
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.retry_join is defined
-    - vault_configuration_storage_raft.retry_join.leader_client_cert is defined
+    - item.leader_client_cert is defined
 
-- name: Test if vault_configuration_storage_raft.retry_join.leader_client_key is set correctly
+- name: Test if item.leader_client_key is set correctly
   ansible.builtin.assert:
     that:
-      - vault_configuration_storage_raft.retry_join.leader_client_key is string
+      - item.leader_client_key is string
     quiet: yes
+  loop: "{{ vault_configuration_storage_raft.leader_client_cert }}"
+  loop_control:
+    label: "{{ item.leader_client_key }}"
   when:
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.retry_join is defined
-    - vault_configuration_storage_raft.retry_join.leader_client_key is defined
+    - item.leader_client_key is defined
 
 - name: Test if vault_configuration_storage_raft.retry_join_as_non_voter is set correctly
   ansible.builtin.assert:

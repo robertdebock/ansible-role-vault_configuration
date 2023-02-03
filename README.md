@@ -4,7 +4,7 @@ Configure HashiCorp Vault on your system.
 
 |GitHub|GitLab|Quality|Downloads|Version|
 |------|------|-------|---------|-------|
-|[![github](https://github.com/robertdebock/ansible-role-vault_configuration/workflows/Ansible%20Molecule/badge.svg)](https://github.com/robertdebock/ansible-role-vault_configuration/actions)|[![gitlab](https://gitlab.com/robertdebock-iac/ansible-role-vault_configuration/badges/master/pipeline.svg)](https://gitlab.com/robertdebock-iac/ansible-role-vault_configuration)|[![quality](https://img.shields.io/ansible/quality/)](https://galaxy.ansible.com/robertdebock/vault_configuration)|[![downloads](https://img.shields.io/ansible/role/d/)](https://galaxy.ansible.com/robertdebock/vault_configuration)|[![Version](https://img.shields.io/github/release/robertdebock/ansible-role-vault_configuration.svg)](https://github.com/robertdebock/ansible-role-vault_configuration/releases/)|
+|[![github](https://github.com/robertdebock/ansible-role-vault_configuration/workflows/Ansible%20Molecule/badge.svg)](https://github.com/robertdebock/ansible-role-vault_configuration/actions)|[![gitlab](https://gitlab.com/robertdebock-iac/ansible-role-vault_configuration/badges/master/pipeline.svg)](https://gitlab.com/robertdebock-iac/ansible-role-vault_configuration)|[![quality](https://img.shields.io/ansible/quality/61422)](https://galaxy.ansible.com/robertdebock/vault_configuration)|[![downloads](https://img.shields.io/ansible/role/d/61422)](https://galaxy.ansible.com/robertdebock/vault_configuration)|[![Version](https://img.shields.io/github/release/robertdebock/ansible-role-vault_configuration.svg)](https://github.com/robertdebock/ansible-role-vault_configuration/releases/)|
 
 ## [Example Playbook](#example-playbook)
 
@@ -120,17 +120,17 @@ vault_configuration_storage_raft:
   trailing_logs: 10000
   snapshot_threshold: 8192
   retry_join:
-    leader_api_addr: "http://127.0.0.1:8200"
-    auto_join: ""
-    auto_join_scheme: "https"
-    auto_join_port: 8200
-    leader_tls_servername: ""
-    leader_ca_cert_file: ""
-    leader_client_cert_file: ""
-    leader_client_key_file: ""
-    leader_ca_cert: ""
-    leader_client_cert: ""
-    leader_client_key: ""
+    - leader_api_addr: "http://127.0.0.1:8200"
+      auto_join: ""
+      auto_join_scheme: "https"
+      auto_join_port: 8200
+      leader_tls_servername: ""
+      leader_ca_cert_file: ""
+      leader_client_cert_file: ""
+      leader_client_key_file: ""
+      leader_ca_cert: ""
+      leader_client_cert: ""
+      leader_client_key: ""
   retry_join_as_non_voter: no
   max_entry_size: 1048576
   autopilot_reconcile_interval: "10s"
