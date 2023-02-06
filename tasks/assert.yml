@@ -419,8 +419,8 @@
       - item.auto_join is string
     quiet: yes
   loop: "{{ vault_configuration_storage_raft.retry_join }}"
-  loop_control:
-    label: "{{ item.auto_join }}"
+  # loop_control:
+  #   label: "{{ item.auto_join }}"
   when:
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.retry_join is defined
@@ -433,8 +433,8 @@
       - item.auto_join_scheme in [ "http", "https" ]
     quiet: yes
   loop: "{{ vault_configuration_storage_raft.retry_join }}"
-  loop_control:
-    label: "{{ item.auto_join_scheme }}"
+  # loop_control:
+  #   label: "{{ item.auto_join_scheme }}"
   when:
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.retry_join is defined
@@ -448,8 +448,8 @@
       - item.auto_join_port <= 64536
     quiet: yes
   loop: "{{ vault_configuration_storage_raft.retry_join }}"
-  loop_control:
-    label: "{{ item.auto_join_port }}"
+  # loop_control:
+  #   label: "{{ item.auto_join_port }}"
   when:
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.retry_join is defined
