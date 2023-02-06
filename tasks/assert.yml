@@ -171,9 +171,10 @@
 - name: Test if vault_configuration_listener_tcp.max_request_duration is set correctly
   ansible.builtin.assert:
     that:
-      - vault_configuration_listener_tcp.max_request_duration is defined
-    quiet: yes
       - vault_configuration_listener_tcp.max_request_duration is string
+    quiet: yes
+  when:
+    - vault_configuration_listener_tcp.max_request_duration is defined
 
 - name: Test if vault_configuration_listener_tcp.proxy_protocol_behavior is set correctly
   ansible.builtin.assert:
