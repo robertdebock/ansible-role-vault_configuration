@@ -25,8 +25,8 @@ vault_configuration_group: vault
 # Values used below are taken from: https://developer.hashicorp.com/vault/docs/configuration
 vault_configuration_max_lease_ttl: "768h"
 vault_configuration_default_lease_ttl: "768h"
-vault_configuration_api_addr: "https://{{ ansible_default_ipv4.address }}:8200"
-vault_configuration_cluster_addr: "https://vault.example.com:8201"
+vault_configuration_api_addr: "https://{{ ansible_fqnd }}:8200"
+vault_configuration_cluster_addr: "https://{{ ansible_fqdn }}:8201"
 vault_configuration_disable_cache: no
 vault_configuration_disable_mlock: yes
 vault_configuration_disable_clustering: no
