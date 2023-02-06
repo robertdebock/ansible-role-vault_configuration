@@ -16,6 +16,14 @@
   when:
     - vault_configuration_storage_raft is defined
 
+- name: Place Vault license
+  ansible.builtin.copy:
+    dest: "/etc/vault.d/license.hclic"
+    content: "{{ vault_license }}"
+    mode: "0640"
+  when:
+    - vault_license is defined
+
 - name: Place Vault configuration
   ansible.builtin.template:
     src: vault.hcl.j2

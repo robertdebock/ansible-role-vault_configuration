@@ -51,6 +51,9 @@ The default values for the variables are set in [`defaults/main.yml`](https://gi
 vault_configuration_owner: vault
 vault_configuration_group: vault
 
+# Set the license. Rquired when `vault_type` is `"ent"` or `"hsm"`.
+# vault_license: "XYZABC"
+
 #
 # GLOBAL SETTINGS
 #
