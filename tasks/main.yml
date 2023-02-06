@@ -23,6 +23,8 @@
     mode: "0640"
   when:
     - vault_configuration_license is defined
+  notify:
+    - Restart Vault
 
 - name: Place Vault configuration
   ansible.builtin.template:
