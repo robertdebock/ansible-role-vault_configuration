@@ -32,10 +32,9 @@
   ansible.builtin.template:
     src: vault.env.j2
     dest: /etc/vault.d/vault.env
-    mode: "0640"
+    mode: "0644"
     owner: "{{ vault_configuration_owner }}"
     group: "{{ vault_configuration_group }}"
-    validate: source %s
   notify:
     - Restart Vault
 
