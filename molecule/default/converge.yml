@@ -6,3 +6,6 @@
 
   roles:
     - role: ansible-role-vault_configuration
+      vault_configuration_environment:
+        - name: http_proxy
+          value: "http://proxy.example.com:3128"

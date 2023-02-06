@@ -22,6 +22,14 @@
   when:
     - vault_configuration_license is defined
 
+- name: Test if vault_configuration_environment is set correctly
+  ansible.builtin.assert:
+    that:
+      - vault_configuration_environment is iterable
+    quiet: yes
+  when:
+    - vault_configuration_environment is defined
+
 - name: Test if vault_configuration_max_lease_ttl is set correctly
   ansible.builtin.assert:
     that:

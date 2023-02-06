@@ -28,6 +28,17 @@
   notify:
     - Restart Vault
 
+- name: Place Vault environment file
+  ansible.builtin.template:
+    src: vault.env.j2
+    dest: /etc/vault.d/vault.env
+    mode: "0640"
+    owner: "{{ vault_configuration_owner }}"
+    group: "{{ vault_configuration_group }}"
+    validate: source %s
+  notify:
+    - Restart Vault
+
 - name: Place Vault configuration
   ansible.builtin.template:
     src: vault.hcl.j2

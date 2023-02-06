@@ -19,6 +19,9 @@ This example is taken from [`molecule/default/converge.yml`](https://github.com/
 
   roles:
     - role: robertdebock.vault_configuration
+      vault_configuration_environment:
+        - name: http_proxy
+          value: "http://proxy.example.com:3128"
 ```
 
 The machine needs to be prepared. In CI this is done using [`molecule/default/prepare.yml`](https://github.com/robertdebock/ansible-role-vault_configuration/blob/master/molecule/default/prepare.yml):
@@ -53,6 +56,15 @@ vault_configuration_group: vault
 
 # Set the license. Rquired when `vault_type` is `"ent"` or `"hsm"`.
 # vault_configuration_license: "XYZABC"
+
+# Environment variables can be saved to /etc/vault.d.vault.env. These are loaded when starting Vault.
+# vault_configuration_environment:
+#   - name: http_proxy
+#     value: "http://proxy.example.com:3128"
+#   - name: HTTP_PROXY
+#     value: "http://proxy.example.com:3128"
+#   - name: no_proxy
+#     value: "direct.example.com,other.example.com"
 
 #
 # GLOBAL SETTINGS
