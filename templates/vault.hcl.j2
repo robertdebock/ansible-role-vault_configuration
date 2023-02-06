@@ -174,7 +174,7 @@ storage "raft" {
     leader_client_key =  "{{ item.leader_client_key }}"
 {% endif %}
 {% endfor %}
-{% if vault_configuration_storage_raft.retry_join_as_non_voter %}
+{% if vault_configuration_storage_raft.retry_join_as_non_voter is defined and vault_configuration_storage_raft.retry_join_as_non_voter %}
   retry_join_as_non_voter = true
 {% endif %}
 {% if vault_configuration_storage_raft.max_entry_size is defined and vault_configuration_storage_raft.max_entry_size != 1048576 %}
