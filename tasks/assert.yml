@@ -14,13 +14,13 @@
       - vault_configuration_group is string
     quiet: yes
 
-- name: Test if vault_license is set correctly
+- name: Test if vault_configuration_license is set correctly
   ansible.builtin.assert:
     that:
-      - vault_license is string
+      - vault_configuration_license is string
     quiet: yes
   when:
-    - vault_license is defined
+    - vault_configuration_license is defined
 
 - name: Test if vault_configuration_max_lease_ttl is set correctly
   ansible.builtin.assert:
