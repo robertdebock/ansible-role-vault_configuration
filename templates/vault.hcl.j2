@@ -173,6 +173,7 @@ storage "raft" {
 {% if item.leader_client_key is defined and item.leader_client_key != "" %}
     leader_client_key =  "{{ item.leader_client_key }}"
 {% endif %}
+  }
 {% endfor %}
 {% if vault_configuration_storage_raft.retry_join_as_non_voter is defined and vault_configuration_storage_raft.retry_join_as_non_voter %}
   retry_join_as_non_voter = true
@@ -193,7 +194,6 @@ storage "raft" {
   autopilot_redundancy_zone = "{{ vault_configuration_storage_raft.autopilot_redundancy_zone }}"
 {% endif %}
 {% endif %}
-  }
 }
 {% endif %}
 
