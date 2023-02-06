@@ -461,8 +461,8 @@
       - item.leader_tls_servername is string
     quiet: yes
   loop: "{{ vault_configuration_storage_raft.retry_join }}"
-  loop_control:
-    label: "{{ item.leader_tls_servername }}"
+  # loop_control:
+  #   label: "{{ item.leader_tls_servername }}"
   when:
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.retry_join is defined
@@ -474,8 +474,8 @@
       - item.leader_ca_cert_file is string
     quiet: yes
   loop: "{{ vault_configuration_storage_raft.retry_join }}"
-  loop_control:
-    label: "{{ item.leader_ca_cert_file }}"
+  # loop_control:
+  #   label: "{{ item.leader_ca_cert_file }}"
   when:
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.retry_join is defined
@@ -487,8 +487,8 @@
       - item.leader_client_cert_file is string
     quiet: yes
   loop: "{{ vault_configuration_storage_raft.retry_join }}"
-  loop_control:
-    label: "{{ item.leader_client_cert_file }}"
+  # loop_control:
+  #   label: "{{ item.leader_client_cert_file }}"
   when:
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.retry_join is defined
@@ -500,8 +500,8 @@
       - item.leader_client_key_file is string
     quiet: yes
   loop: "{{ vault_configuration_storage_raft.retry_join }}"
-  loop_control:
-    label: "{{ item.leader_client_key_file }}"
+  # loop_control:
+  #   label: "{{ item.leader_client_key_file }}"
   when:
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.retry_join is defined
@@ -513,8 +513,8 @@
       - item.leader_ca_cert is string
     quiet: yes
   loop: "{{ vault_configuration_storage_raft.retry_join }}"
-  loop_control:
-    label: "{{ item.leader_ca_cert }}"
+  # loop_control:
+  #   label: "{{ item.leader_ca_cert }}"
   when:
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.retry_join is defined
@@ -526,8 +526,8 @@
       - item.leader_client_cert is string
     quiet: yes
   loop: "{{ vault_configuration_storage_raft.leader_client_cert }}"
-  loop_control:
-    label: "{{ item.leader_client_cert }}"
+  # loop_control:
+  #   label: "{{ item.leader_client_cert }}"
   when:
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.retry_join is defined
@@ -539,8 +539,8 @@
       - item.leader_client_key is string
     quiet: yes
   loop: "{{ vault_configuration_storage_raft.leader_client_cert }}"
-  loop_control:
-    label: "{{ item.leader_client_key }}"
+  # loop_control:
+  #   label: "{{ item.leader_client_key }}"
   when:
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.retry_join is defined
