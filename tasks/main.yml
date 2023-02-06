@@ -21,6 +21,8 @@
     dest: "/etc/vault.d/license.hclic"
     content: "{{ vault_configuration_license }}"
     mode: "0640"
+    owner: "{{ vault_configuration_owner }}"
+    group: "{{ vault_configuration_group }}"
   when:
     - vault_configuration_license is defined
   notify:
