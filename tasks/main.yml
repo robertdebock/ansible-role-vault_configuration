@@ -16,6 +16,44 @@
   when:
     - vault_configuration_storage_raft is defined
 
+- name: Place TLS CA certificate
+  ansible.builtin.copy:
+    src: "{{ item.leader_ca_cert_file | basename }}"
+    dest: "{{ item.leader_ca_cert_file }}"
+    mode: "0600"
+    owner: "{{ vault_configuration_owner }}"
+    group: "{{ vault_configuration_group }}"
+  loop: "{{ vault_configuration_storage_raft.retry_join }}"
+  loop_control:
+    label: "{{ item.leader_ca_cert_file | default('Not set') }}"
+  when:
+    - vault_configuration_storage_raft is defined
+    - vault_configuration_storage_raft.retry_join is defined
+    - item.leader_ca_cert_file is defined
+
+- name: Place TLS key
+  ansible.builtin.copy:
+    # TODO: Maybe `content` with a defined varialbe is better.
+    src: "{{ vault_configuration_listener_tcp.tls_key_file | basename }}"
+    dest: "/opt/vault/tls/{{ vault_configuration_listener_tcp.tls_key_file | basename }}"
+    mode: "0600"
+    owner: "{{ vault_configuration_owner }}"
+    group: "{{ vault_configuration_group }}"
+  when:
+    - vault_configuration_listener_tcp is defined
+    - vault_configuration_listener_tcp.tls_key_file is defined
+
+- name: Place TLS certificate
+  ansible.builtin.copy:
+    src: "{{ vault_configuration_listener_tcp.tls_cert_file | basename }}"
+    dest: "/opt/vault/tls/{{ vault_configuration_listener_tcp.tls_cert_file | basename }}"
+    mode: "0600"
+    owner: "{{ vault_configuration_owner }}"
+    group: "{{ vault_configuration_group }}"
+  when:
+    - vault_configuration_listener_tcp is defined
+    - vault_configuration_listener_tcp.tls_cert_file is defined
+
 - name: Place Vault license
   ansible.builtin.copy:
     dest: "/etc/vault.d/license.hclic"

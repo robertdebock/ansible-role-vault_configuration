@@ -53,8 +53,8 @@ vault_configuration_listener_tcp:
   proxy_protocol_behavior: ""
   proxy_protocol_authorized_addrs: ""
   tls_disable: yes
-  tls_cert_file: ""
-  tls_key_file: ""
+  tls_cert_file: "/etc/vault.d/vault.crt"
+  tls_key_file: "/etc/vault.d/vault.key"
   tls_min_version: "tls12"
   tls_cipher_suites: ""
   tls_require_and_verify_client_cert: no
@@ -91,7 +91,7 @@ vault_configuration_storage_raft:
       auto_join_scheme: "https"
       auto_join_port: 8200
       leader_tls_servername: ""
-      leader_ca_cert_file: ""
+      leader_ca_cert_file: "/opt/vault/tls/ca.crt"
       leader_client_cert_file: ""
       leader_client_key_file: ""
       leader_ca_cert: ""

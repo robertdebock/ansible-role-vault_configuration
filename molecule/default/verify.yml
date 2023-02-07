@@ -5,5 +5,8 @@
   gather_facts: yes
 
   tasks:
-    - name: check if connection still works
-      ansible.builtin.ping:
+    - name: Initialize Vault
+      ansible.builtin.command:
+        cmd: vault operator init
+      environment:
+        VAULT_ADDR: "http://localhost:8200"

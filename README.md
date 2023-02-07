@@ -19,16 +19,13 @@ This example is taken from [`molecule/default/converge.yml`](https://github.com/
 
   roles:
     - role: robertdebock.vault_configuration
-      vault_configuration_environment:
-        - name: http_proxy
-          value: "http://proxy.example.com:3128"
 ```
 
 The machine needs to be prepared. In CI this is done using [`molecule/default/prepare.yml`](https://github.com/robertdebock/ansible-role-vault_configuration/blob/master/molecule/default/prepare.yml):
 
 ```yaml
 ---
-- name: prepare
+- name: Prepare
   hosts: all
   become: yes
   gather_facts: no
@@ -38,6 +35,32 @@ The machine needs to be prepared. In CI this is done using [`molecule/default/pr
     - role: robertdebock.core_dependencies
     - role: robertdebock.hashicorp
     - role: robertdebock.vault
+
+- name: Create TLS material on localhost
+  hosts: localhost
+  become: no
+  gather_facts: no
+
+  tasks:
+    - name: Generate a private key for the CA
+      ansible.builtin.command:
+        cmd: openssl genpkey -algorithm RSA -out ca.key
+
+    - name: Create the root CA certificate
+      ansible.builtin.command:
+        cmd: openssl req -new -x509 -key ca.key -out ca.crt -subj "/C=NL/ST=UTRECHT/L=Breukelen/O=Robert de Bock/CN=CA Robert de Bock/emailAddress=robert@meinit.nl"
+
+    - name: Generate a private key for the server
+      ansible.builtin.command:
+        cmd: openssl genpkey -algorithm RSA -out vault.key
+
+    - name: Create a certificate signing request (CSR) for the server
+      ansible.builtin.command:
+        cmd: openssl req -new -key vault.key -out vault.csr -subj "/C=NL/ST=UTRECHT/L=Breukelen/O=Robert de Bock/CN=vault.robertdebock.nl/emailAddress=robert@meinit.nl"
+
+    - name: Sign the server certificate with the CA
+      ansible.builtin.command:
+        cmd: openssl x509 -req -in vault.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out vault.crt
 ```
 
 Also see a [full explanation and example](https://robertdebock.nl/how-to-use-these-roles.html) on how to use these roles.
@@ -74,8 +97,8 @@ vault_configuration_group: vault
 # Values used below are taken from: https://developer.hashicorp.com/vault/docs/configuration
 vault_configuration_max_lease_ttl: "768h"
 vault_configuration_default_lease_ttl: "768h"
-vault_configuration_api_addr: "https://{{ ansible_default_ipv4.address }}:8200"
-vault_configuration_cluster_addr: "https://vault.example.com:8201"
+vault_configuration_api_addr: "https://{{ ansible_fqdn }}:8200"
+vault_configuration_cluster_addr: "https://{{ ansible_fqdn }}:8201"
 vault_configuration_disable_cache: no
 vault_configuration_disable_mlock: yes
 vault_configuration_disable_clustering: no
@@ -102,8 +125,8 @@ vault_configuration_listener_tcp:
   proxy_protocol_behavior: ""
   proxy_protocol_authorized_addrs: ""
   tls_disable: yes
-  tls_cert_file: ""
-  tls_key_file: ""
+  tls_cert_file: "/etc/vault.d/vault.crt"
+  tls_key_file: "/etc/vault.d/vault.key"
   tls_min_version: "tls12"
   tls_cipher_suites: ""
   tls_require_and_verify_client_cert: no
@@ -140,7 +163,7 @@ vault_configuration_storage_raft:
       auto_join_scheme: "https"
       auto_join_port: 8200
       leader_tls_servername: ""
-      leader_ca_cert_file: ""
+      leader_ca_cert_file: "/opt/vault/tls/ca.crt"
       leader_client_cert_file: ""
       leader_client_key_file: ""
       leader_ca_cert: ""
