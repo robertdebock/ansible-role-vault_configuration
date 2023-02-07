@@ -16,6 +16,10 @@
   gather_facts: no
 
   tasks:
+    - name: Install openssl
+      ansible.builtin.package:
+        name: openssl
+
     - name: Generate a private key for the CA
       ansible.builtin.command:
         cmd: openssl genpkey -algorithm RSA -out ca.key
