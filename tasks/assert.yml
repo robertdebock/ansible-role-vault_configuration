@@ -429,8 +429,8 @@
       - item.auto_join is string
     quiet: yes
   loop: "{{ vault_configuration_storage_raft.retry_join }}"
-  # loop_control:
-  #   label: "{{ item.auto_join }}"
+  loop_control:
+    label: "{{ item.auto_join | default('Not set') }}"
   when:
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.retry_join is defined
@@ -443,8 +443,8 @@
       - item.auto_join_scheme in [ "http", "https" ]
     quiet: yes
   loop: "{{ vault_configuration_storage_raft.retry_join }}"
-  # loop_control:
-  #   label: "{{ item.auto_join_scheme }}"
+  loop_control:
+    label: "{{ item.auto_join_scheme | default('Not set') }}"
   when:
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.retry_join is defined
@@ -458,8 +458,8 @@
       - item.auto_join_port <= 64536
     quiet: yes
   loop: "{{ vault_configuration_storage_raft.retry_join }}"
-  # loop_control:
-  #   label: "{{ item.auto_join_port }}"
+  loop_control:
+    label: "{{ item.auto_join_port | default('Not set') }}"
   when:
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.retry_join is defined
@@ -471,8 +471,8 @@
       - item.leader_tls_servername is string
     quiet: yes
   loop: "{{ vault_configuration_storage_raft.retry_join }}"
-  # loop_control:
-  #   label: "{{ item.leader_tls_servername }}"
+  loop_control:
+    label: "{{ item.leader_tls_servername | default('Not set') }}"
   when:
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.retry_join is defined
@@ -484,8 +484,8 @@
       - item.leader_ca_cert_file is string
     quiet: yes
   loop: "{{ vault_configuration_storage_raft.retry_join }}"
-  # loop_control:
-  #   label: "{{ item.leader_ca_cert_file }}"
+  loop_control:
+    label: "{{ item.leader_ca_cert_file | default('Not set') }}"
   when:
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.retry_join is defined
@@ -497,8 +497,8 @@
       - item.leader_client_cert_file is string
     quiet: yes
   loop: "{{ vault_configuration_storage_raft.retry_join }}"
-  # loop_control:
-  #   label: "{{ item.leader_client_cert_file }}"
+  loop_control:
+    label: "{{ item.leader_client_cert_file | default('Not set') }}"
   when:
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.retry_join is defined
@@ -510,8 +510,8 @@
       - item.leader_client_key_file is string
     quiet: yes
   loop: "{{ vault_configuration_storage_raft.retry_join }}"
-  # loop_control:
-  #   label: "{{ item.leader_client_key_file }}"
+  loop_control:
+    label: "{{ item.leader_client_key_file | default('Not set') }}"
   when:
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.retry_join is defined
@@ -523,8 +523,8 @@
       - item.leader_ca_cert is string
     quiet: yes
   loop: "{{ vault_configuration_storage_raft.retry_join }}"
-  # loop_control:
-  #   label: "{{ item.leader_ca_cert }}"
+  loop_control:
+    label: "{{ item.leader_ca_cert | default('Not set') }}"
   when:
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.retry_join is defined
@@ -536,8 +536,8 @@
       - item.leader_client_cert is string
     quiet: yes
   loop: "{{ vault_configuration_storage_raft.leader_client_cert }}"
-  # loop_control:
-  #   label: "{{ item.leader_client_cert }}"
+  loop_control:
+    label: "{{ item.leader_client_cert | default('Not set') }}"
   when:
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.retry_join is defined
@@ -549,8 +549,8 @@
       - item.leader_client_key is string
     quiet: yes
   loop: "{{ vault_configuration_storage_raft.leader_client_cert }}"
-  # loop_control:
-  #   label: "{{ item.leader_client_key }}"
+  loop_control:
+    label: "{{ item.leader_client_key | default('Not set') }}"
   when:
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.retry_join is defined
