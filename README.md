@@ -42,6 +42,10 @@ The machine needs to be prepared. In CI this is done using [`molecule/default/pr
   gather_facts: no
 
   tasks:
+    - name: Install openssl
+      ansible.builtin.package:
+        name: openssl
+
     - name: Generate a private key for the CA
       ansible.builtin.command:
         cmd: openssl genpkey -algorithm RSA -out ca.key
@@ -124,9 +128,9 @@ vault_configuration_listener_tcp:
   max_request_duration: "90s"
   proxy_protocol_behavior: ""
   proxy_protocol_authorized_addrs: ""
-  tls_disable: yes
-  tls_cert_file: "/etc/vault.d/vault.crt"
-  tls_key_file: "/etc/vault.d/vault.key"
+  tls_disable: no
+  tls_cert_file: "/opt/vault/tls/vault.crt"
+  tls_key_file: "/opt/vault/tls/vault.key"
   tls_min_version: "tls12"
   tls_cipher_suites: ""
   tls_require_and_verify_client_cert: no
@@ -158,7 +162,7 @@ vault_configuration_storage_raft:
   trailing_logs: 10000
   snapshot_threshold: 8192
   retry_join:
-    - leader_api_addr: "http://127.0.0.1:8200"
+    - leader_api_addr: "https://127.0.0.1:8200"
       auto_join: ""
       auto_join_scheme: "https"
       auto_join_port: 8200
