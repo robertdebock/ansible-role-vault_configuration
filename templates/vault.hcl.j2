@@ -78,7 +78,7 @@ listener "tcp" {
 {% if vault_configuration_listener_tcp.tls_key_file is defined and vault_configuration_listener_tcp.tls_key_file != "" %}
   tls_key_file = "{{ vault_configuration_listener_tcp.tls_key_file }}"
 {% endif %}
-{% if vault_configuration_listener_tcp.tls_min_version is defined and (vault_configuration_listener_tcp.tls_min_version != "" or vault_configuration_listener_tcp.tls_min_version != "tls12") and not vault_configuration_listener_tcp.tls_disable %}
+{% if vault_configuration_listener_tcp.tls_min_version is defined and vault_configuration_listener_tcp.tls_min_version != "tls12" and not vault_configuration_listener_tcp.tls_disable %}
   tls_min_version = "{{ vault_configuration_listener_tcp.tls_min_version }}"
 {% endif %}
 {% if vault_configuration_listener_tcp.tls_cipher_suites is defined and vault_configuration_listener_tcp.tls_cipher_suites != "" %}
