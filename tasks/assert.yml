@@ -35,6 +35,7 @@
     that:
       - vault_configuration_max_lease_ttl is defined
       - vault_configuration_max_lease_ttl is string
+      - vault_configuration_max_lease_ttl != ""
     quiet: yes
 
 - name: Test if vault_configuration_default_lease_ttl is set correctly
@@ -42,6 +43,7 @@
     that:
       - vault_configuration_default_lease_ttl is defined
       - vault_configuration_default_lease_ttl is string
+      - vault_configuration_default_lease_ttl != ""
     quiet: yes
 
 - name: Test if vault_configuration_api_addr is set correctly

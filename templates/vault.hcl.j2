@@ -4,10 +4,10 @@
 # GLOBAL SETTINGS
 #
 
-{% if vault_configuration_max_lease_ttl is defined and (vault_configuration_max_lease_ttl != "" or vault_configuration_max_lease_ttl != "768h") %}
+{% if vault_configuration_max_lease_ttl is defined and vault_configuration_max_lease_ttl != "768h" %}
 max_lease_ttl = "{{ vault_configuration_max_lease_ttl }}"
 {% endif %}
-{% if vault_configuration_default_lease_ttl is defined and (vault_configuration_default_lease_ttl != "" or vault_configuration_default_lease_ttl != "768h") %}
+{% if vault_configuration_default_lease_ttl is defined and vault_configuration_default_lease_ttl != "768h" %}
 default_lease_ttl = "{{ vault_configuration_default_lease_ttl }}"
 {% endif %}
 api_addr = "{{ vault_configuration_api_addr }}"
