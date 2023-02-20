@@ -16,4 +16,3 @@
     - name: Show journalclt logs
       ansible.builtin.debug:
         msg: "{{ vault_configuration_journalctl_logs }}"
-
