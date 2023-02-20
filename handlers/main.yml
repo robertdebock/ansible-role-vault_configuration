@@ -2,6 +2,17 @@
 # handlers file for vault_configuration
 
 - name: Restart Vault
-  ansible.builtin.service:
-    name: vault
-    state: restarted
+  block:
+    - name: Restart Vault service
+      ansible.builtin.service:
+        name: vault
+        state: restarted
+  rescue:
+    - name: Collect journalctl logs
+      ansible.builtin.command:
+        cmd: journalctl -u vault
+      register: vault_configuration_journalctl_logs
+
+    - name: Show journalclt logs
+      ansible.builtin.debug:
+        msg: "{{ vault_configuration_journalctl_logs }}"
