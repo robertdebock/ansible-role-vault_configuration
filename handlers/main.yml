@@ -12,6 +12,7 @@
       ansible.builtin.command:
         cmd: journalctl -u vault
       register: vault_configuration_journalctl_logs
+      changed_when: no
 
     - name: Show journalclt logs
       ansible.builtin.debug:
