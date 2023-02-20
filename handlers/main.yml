@@ -2,4 +2,6 @@
 # handlers file for vault_configuration
 
 - name: Restart Vault
-  ansible.builtin.include_tasks: tasks/restart_vault.yml
+  ansible.builtin.service:
+    name: vault
+    state: restarted
