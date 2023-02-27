@@ -10,32 +10,33 @@
     - role: robertdebock.hashicorp
     - role: robertdebock.vault
 
-- name: Create TLS material on localhost
-  hosts: localhost
-  become: no
-  gather_facts: no
+# The contents of the files generated below has been pasted into `defaults/main.yml`.
+# - name: Create TLS material on localhost
+#   hosts: localhost
+#   become: no
+#   gather_facts: no
 
-  tasks:
-    - name: Install openssl
-      ansible.builtin.package:
-        name: openssl
+#   tasks:
+#     - name: Install openssl
+#       ansible.builtin.package:
+#         name: openssl
 
-    - name: Generate a private key for the CA
-      ansible.builtin.command:
-        cmd: openssl genpkey -algorithm RSA -out ca.key
+#     - name: Generate a private key for the CA
+#       ansible.builtin.command:
+#         cmd: openssl genpkey -algorithm RSA -out ca.key
 
-    - name: Create the root CA certificate
-      ansible.builtin.command:
-        cmd: openssl req -new -x509 -key ca.key -out ca.crt -subj "/C=NL/ST=UTRECHT/L=Breukelen/O=Robert de Bock/CN=CA Robert de Bock/emailAddress=robert@meinit.nl"
+#     - name: Create the root CA certificate
+#       ansible.builtin.command:
+#         cmd: openssl req -new -x509 -key ca.key -out ca.crt -subj "/C=NL/ST=UTRECHT/L=Breukelen/O=Robert de Bock/CN=CA Robert de Bock/emailAddress=robert@meinit.nl"
 
-    - name: Generate a private key for the server
-      ansible.builtin.command:
-        cmd: openssl genpkey -algorithm RSA -out vault.key
+#     - name: Generate a private key for the server
+#       ansible.builtin.command:
+#         cmd: openssl genpkey -algorithm RSA -out vault.key
 
-    - name: Create a certificate signing request (CSR) for the server
-      ansible.builtin.command:
-        cmd: openssl req -new -key vault.key -out vault.csr -subj "/C=NL/ST=UTRECHT/L=Breukelen/O=Robert de Bock/CN=vault.robertdebock.nl/emailAddress=robert@meinit.nl"
+#     - name: Create a certificate signing request (CSR) for the server
+#       ansible.builtin.command:
+#         cmd: openssl req -new -key vault.key -out vault.csr -subj "/C=NL/ST=UTRECHT/L=Breukelen/O=Robert de Bock/CN=vault.robertdebock.nl/emailAddress=robert@meinit.nl"
 
-    - name: Sign the server certificate with the CA
-      ansible.builtin.command:
-        cmd: openssl x509 -req -in vault.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out vault.crt
+#     - name: Sign the server certificate with the CA
+#       ansible.builtin.command:
+#         cmd: openssl x509 -req -in vault.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out vault.crt
