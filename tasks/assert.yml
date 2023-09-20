@@ -1,6 +1,6 @@
 ---
 
-- name: assert | Test if vault_configuration_owner is set correctly
+- name: assert | Test vault_configuration_owner
   ansible.builtin.assert:
     that:
       - vault_configuration_owner is defined
@@ -8,7 +8,7 @@
       - vault_configuration_owner is not none
     quiet: yes
 
-- name: assert | Test if vault_configuration_group is set correctly
+- name: assert | Test vault_configuration_group
   ansible.builtin.assert:
     that:
       - vault_configuration_group is defined
@@ -16,7 +16,7 @@
       - vault_configuration_group is not none
     quiet: yes
 
-- name: assert | Test if vault_configuration_license is set correctly
+- name: assert | Test vault_configuration_license
   ansible.builtin.assert:
     that:
       - vault_configuration_license is string
@@ -25,7 +25,7 @@
   when:
     - vault_configuration_license is defined
 
-- name: assert | Test if vault_configuration_environment is set correctly
+- name: assert | Test vault_configuration_environment
   ansible.builtin.assert:
     that:
       - vault_configuration_environment is iterable
@@ -33,7 +33,7 @@
   when:
     - vault_configuration_environment is defined
 
-- name: assert | Test if vault_configuration_max_lease_ttl is set correctly
+- name: assert | Test vault_configuration_max_lease_ttl
   ansible.builtin.assert:
     that:
       - vault_configuration_max_lease_ttl is defined
@@ -41,7 +41,7 @@
       - vault_configuration_max_lease_ttl is not none
     quiet: yes
 
-- name: assert | Test if vault_configuration_default_lease_ttl is set correctly
+- name: assert | Test vault_configuration_default_lease_ttl
   ansible.builtin.assert:
     that:
       - vault_configuration_default_lease_ttl is defined
@@ -49,7 +49,7 @@
       - vault_configuration_default_lease_ttl is not none
     quiet: yes
 
-- name: assert | Test if vault_configuration_api_addr is set correctly
+- name: assert | Test vault_configuration_api_addr
   ansible.builtin.assert:
     that:
       - vault_configuration_api_addr is defined
@@ -57,7 +57,7 @@
       - vault_configuration_api_addr is not none
     quiet: yes
 
-- name: assert | Test if vault_configuration_cluster_addr is set correctly
+- name: assert | Test vault_configuration_cluster_addr
   ansible.builtin.assert:
     that:
       - vault_configuration_cluster_addr is defined
@@ -67,28 +67,28 @@
   when:
     - not vault_configuration_disable_clustering
 
-- name: assert | Test if vault_configuration_disable_cache is set correctly
+- name: assert | Test vault_configuration_disable_cache
   ansible.builtin.assert:
     that:
       - vault_configuration_disable_cache is defined
       - vault_configuration_disable_cache is boolean
     quiet: yes
 
-- name: assert | Test if vault_configuration_disable_mlock is set correctly
+- name: assert | Test vault_configuration_disable_mlock
   ansible.builtin.assert:
     that:
       - vault_configuration_disable_mlock is defined
       - vault_configuration_disable_mlock is boolean
     quiet: yes
 
-- name: assert | Test if vault_configuration_disable_clustering is set correctly
+- name: assert | Test vault_configuration_disable_clustering
   ansible.builtin.assert:
     that:
       - vault_configuration_disable_clustering is defined
       - vault_configuration_disable_clustering is boolean
     quiet: yes
 
-- name: assert | Test if vault_configuration_plugin_directory is set correctly
+- name: assert | Test vault_configuration_plugin_directory
   ansible.builtin.assert:
     that:
       - vault_configuration_plugin_directory is defined
@@ -96,14 +96,14 @@
       - vault_configuration_plugin_directory is not none
     quiet: yes
 
-- name: assert | Test if vault_configuration_ui is set correctly
+- name: assert | Test vault_configuration_ui
   ansible.builtin.assert:
     that:
       - vault_configuration_ui is defined
       - vault_configuration_ui is boolean
     quiet: yes
 
-- name: assert | Test if vault_configuration_log_level is set correctly
+- name: assert | Test vault_configuration_log_level
   ansible.builtin.assert:
     that:
       - vault_configuration_log_level is string
@@ -113,14 +113,14 @@
     - vault_configuration_log_level is defined
     - vault_configuration_log_level | length > 0
 
-- name: assert | Test if vault_configuration_listener_tcp is set correctly
+- name: assert | Test vault_configuration_listener_tcp
   ansible.builtin.assert:
     that:
       - vault_configuration_listener_tcp is defined
       - vault_configuration_listener_tcp is mapping
     quiet: yes
 
-- name: assert | Test if vault_configuration_listener_tcp.address is set correctly
+- name: assert | Test vault_configuration_listener_tcp.address
   ansible.builtin.assert:
     that:
       - vault_configuration_listener_tcp.address is defined
@@ -128,7 +128,7 @@
       - vault_configuration_listener_tcp.address is not none
     quiet: yes
 
-- name: assert | Test if vault_configuration_listener_tcp.cluster_address is set correctly
+- name: assert | Test vault_configuration_listener_tcp.cluster_address
   ansible.builtin.assert:
     that:
       - vault_configuration_listener_tcp.cluster_address is defined
@@ -138,7 +138,7 @@
   when:
     - not vault_configuration_disable_clustering
 
-- name: assert | Test if vault_configuration_listener_tcp.http_idle_timeout is set correctly
+- name: assert | Test vault_configuration_listener_tcp.http_idle_timeout
   ansible.builtin.assert:
     that:
       - vault_configuration_listener_tcp.http_idle_timeout is defined
@@ -146,7 +146,7 @@
   when:
     - vault_configuration_listener_tcp.http_idle_timeout is string
 
-- name: assert | Test if vault_configuration_listener_tcp.http_read_header_timeout is set correctly
+- name: assert | Test vault_configuration_listener_tcp.http_read_header_timeout
   ansible.builtin.assert:
     that:
       - vault_configuration_listener_tcp.http_read_header_timeout is defined
@@ -154,7 +154,7 @@
   when:
     - vault_configuration_listener_tcp.http_read_header_timeout is string
 
-- name: assert | Test if vault_configuration_listener_tcp.http_read_timeout is set correctly
+- name: assert | Test vault_configuration_listener_tcp.http_read_timeout
   ansible.builtin.assert:
     that:
       - vault_configuration_listener_tcp.http_read_timeout is defined
@@ -162,7 +162,7 @@
   when:
     - vault_configuration_listener_tcp.http_read_timeout is string
 
-- name: assert | Test if vault_configuration_listener_tcp.http_write_timeout is set correctly
+- name: assert | Test vault_configuration_listener_tcp.http_write_timeout
   ansible.builtin.assert:
     that:
       - vault_configuration_listener_tcp.http_write_timeout is not none
@@ -172,7 +172,7 @@
   when:
     - vault_configuration_listener_tcp.http_write_timeout is defined
 
-- name: assert | Test if vault_configuration_listener_tcp.max_request_size is set correctly
+- name: assert | Test vault_configuration_listener_tcp.max_request_size
   ansible.builtin.assert:
     that:
       - vault_configuration_listener_tcp.max_request_size is number
@@ -180,7 +180,7 @@
   when:
     - vault_configuration_listener_tcp.max_request_size is defined
 
-- name: assert | Test if vault_configuration_listener_tcp.max_request_duration is set correctly
+- name: assert | Test vault_configuration_listener_tcp.max_request_duration
   ansible.builtin.assert:
     that:
       - vault_configuration_listener_tcp.max_request_duration is string
@@ -189,7 +189,7 @@
   when:
     - vault_configuration_listener_tcp.max_request_duration is defined
 
-- name: assert | Test if vault_configuration_listener_tcp.proxy_protocol_behavior is set correctly
+- name: assert | Test vault_configuration_listener_tcp.proxy_protocol_behavior
   ansible.builtin.assert:
     that:
       - vault_configuration_listener_tcp.proxy_protocol_behavior is string
@@ -199,7 +199,7 @@
     - vault_configuration_listener_tcp.proxy_protocol_behavior is defined
     - vault_configuration_listener_tcp.proxy_protocol_behavior | length > 0
 
-- name: assert | Test if vault_configuration_listener_tcp.proxy_protocol_authorized_addrs is set correctly
+- name: assert | Test vault_configuration_listener_tcp.proxy_protocol_authorized_addrs
   ansible.builtin.assert:
     that:
       - vault_configuration_listener_tcp.proxy_protocol_authorized_addrs is string
@@ -208,7 +208,7 @@
   when:
     - vault_configuration_listener_tcp.proxy_protocol_authorized_addrs is defined
 
-- name: assert | Test if vault_configuration_listener_tcp.tls_disable is set correctly
+- name: assert | Test vault_configuration_listener_tcp.tls_disable
   ansible.builtin.assert:
     that:
       - vault_configuration_listener_tcp.tls_disable is boolean
@@ -216,7 +216,7 @@
   when:
     - vault_configuration_listener_tcp.tls_disable is defined
 
-- name: assert | Test if vault_configuration_listener_tcp.tls_cert_file is set correctly
+- name: assert | Test vault_configuration_listener_tcp.tls_cert_file
   ansible.builtin.assert:
     that:
       - vault_configuration_listener_tcp.tls_cert_file is string
@@ -225,7 +225,7 @@
   when:
     - vault_configuration_listener_tcp.tls_cert_file is defined
 
-- name: assert | Test if vault_configuration_listener_tcp.tls_cert is set correctly
+- name: assert | Test vault_configuration_listener_tcp.tls_cert
   ansible.builtin.assert:
     that:
       - vault_configuration_listener_tcp.tls_cert is string
@@ -235,7 +235,7 @@
   when:
     - vault_configuration_listener_tcp.tls_cert is defined
 
-- name: assert | Test if vault_configuration_listener_tcp.tls_key_file is set correctly
+- name: assert | Test vault_configuration_listener_tcp.tls_key_file
   ansible.builtin.assert:
     that:
       - vault_configuration_listener_tcp.tls_key_file is string
@@ -244,7 +244,7 @@
   when:
     - vault_configuration_listener_tcp.tls_key_file is defined
 
-- name: assert | Test if vault_configuration_listener_tcp.tls_key is set correctly
+- name: assert | Test vault_configuration_listener_tcp.tls_key
   ansible.builtin.assert:
     that:
       - vault_configuration_listener_tcp.tls_key is string
@@ -254,7 +254,7 @@
   when:
     - vault_configuration_listener_tcp.tls_key is defined
 
-- name: assert | Test if vault_configuration_listener_tcp.tls_min_version is set correctly
+- name: assert | Test vault_configuration_listener_tcp.tls_min_version
   ansible.builtin.assert:
     that:
       - vault_configuration_listener_tcp.tls_min_version is string
@@ -263,7 +263,7 @@
   when:
     - vault_configuration_listener_tcp.tls_min_version is defined
 
-- name: assert | Test if vault_configuration_listener_tcp.tls_cipher_suites is set correctly
+- name: assert | Test vault_configuration_listener_tcp.tls_cipher_suites
   ansible.builtin.assert:
     that:
       - vault_configuration_listener_tcp.tls_cipher_suites is string
@@ -272,7 +272,7 @@
   when:
     - vault_configuration_listener_tcp.tls_cipher_suites is defined
 
-- name: assert | Test if vault_configuration_listener_tcp.tls_require_and_verify_client_cert is set correctly
+- name: assert | Test vault_configuration_listener_tcp.tls_require_and_verify_client_cert
   ansible.builtin.assert:
     that:
       - vault_configuration_listener_tcp.tls_require_and_verify_client_cert is boolean
@@ -280,7 +280,7 @@
   when:
     - vault_configuration_listener_tcp.tls_require_and_verify_client_cert is defined
 
-- name: assert | Test if vault_configuration_listener_tcp.tls_client_ca_file is set correctly
+- name: assert | Test vault_configuration_listener_tcp.tls_client_ca_file
   ansible.builtin.assert:
     that:
       - vault_configuration_listener_tcp.tls_client_ca_file is string
@@ -289,7 +289,7 @@
   when:
     - vault_configuration_listener_tcp.tls_client_ca_file is defined
 
-- name: assert | Test if vault_configuration_listener_tcp.tls_disable_client_certs is set correctly
+- name: assert | Test vault_configuration_listener_tcp.tls_disable_client_certs
   ansible.builtin.assert:
     that:
       - vault_configuration_listener_tcp.tls_disable_client_certs is boolean
@@ -297,7 +297,7 @@
   when:
     - vault_configuration_listener_tcp.tls_disable_client_certs is defined
 
-- name: assert | Test if vault_configuration_listener_tcp.x_forwarded_for_authorized_addrs is set correctly
+- name: assert | Test vault_configuration_listener_tcp.x_forwarded_for_authorized_addrs
   ansible.builtin.assert:
     that:
       - vault_configuration_listener_tcp.x_forwarded_for_authorized_addrs is string
@@ -306,7 +306,7 @@
   when:
     - vault_configuration_listener_tcp.x_forwarded_for_authorized_addrs is defined
 
-- name: assert | Test if vault_configuration_listener_tcp.x_forwarded_for_hop_skips is set correctly
+- name: assert | Test vault_configuration_listener_tcp.x_forwarded_for_hop_skips
   ansible.builtin.assert:
     that:
       - vault_configuration_listener_tcp.x_forwarded_for_hop_skips is number
@@ -315,7 +315,7 @@
   when:
     - vault_configuration_listener_tcp.x_forwarded_for_hop_skips is defined
 
-- name: assert | Test if vault_configuration_listener_tcp.x_forwarded_for_reject_not_authorized is set correctly
+- name: assert | Test vault_configuration_listener_tcp.x_forwarded_for_reject_not_authorized
   ansible.builtin.assert:
     that:
       - vault_configuration_listener_tcp.x_forwarded_for_reject_not_authorized is boolean
@@ -323,7 +323,7 @@
   when:
     - vault_configuration_listener_tcp.x_forwarded_for_reject_not_authorized is defined
 
-- name: assert | Test if vault_configuration_listener_tcp.x_forwarded_for_reject_not_present is set correctly
+- name: assert | Test vault_configuration_listener_tcp.x_forwarded_for_reject_not_present
   ansible.builtin.assert:
     that:
       - vault_configuration_listener_tcp.x_forwarded_for_reject_not_present is boolean
@@ -331,7 +331,7 @@
   when:
     - vault_configuration_listener_tcp.x_forwarded_for_reject_not_present is defined
 
-- name: assert | Test if vault_configuration_listener_tcp.telemetry is set correctly
+- name: assert | Test vault_configuration_listener_tcp.telemetry
   ansible.builtin.assert:
     that:
       - vault_configuration_listener_tcp.telemetry is mapping
@@ -339,7 +339,7 @@
   when:
     - vault_configuration_listener_tcp.telemetry is defined
 
-- name: assert | Test if vault_configuration_listener_tcp.telemetry.unauthenticated_metrics_access is set correctly
+- name: assert | Test vault_configuration_listener_tcp.telemetry.unauthenticated_metrics_access
   ansible.builtin.assert:
     that:
       - vault_configuration_listener_tcp.telemetry.unauthenticated_metrics_access is boolean
@@ -348,7 +348,7 @@
     - vault_configuration_listener_tcp.telemetry.unauthenticated_metrics_access is defined
     - vault_configuration_listener_tcp.telemetry is defined
 
-- name: assert | Test if vault_configuration_listener_tcp.profiling is set correctly
+- name: assert | Test vault_configuration_listener_tcp.profiling
   ansible.builtin.assert:
     that:
       - vault_configuration_listener_tcp.profiling is mapping
@@ -356,7 +356,7 @@
   when:
     - vault_configuration_listener_tcp.profiling is defined
 
-- name: assert | Test if vault_configuration_listener_tcp.profiling.unauthenticated_pprof_access is set correctly
+- name: assert | Test vault_configuration_listener_tcp.profiling.unauthenticated_pprof_access
   ansible.builtin.assert:
     that:
       - vault_configuration_listener_tcp.profiling.unauthenticated_pprof_access is boolean
@@ -365,7 +365,7 @@
     - vault_configuration_listener_tcp.profiling is defined
     - vault_configuration_listener_tcp.profiling.unauthenticated_pprof_access is defined
 
-- name: assert | Test if vault_configuration_listener_tcp.profiling.unauthenticated_in_flight_request_access is set correctly
+- name: assert | Test vault_configuration_listener_tcp.profiling.unauthenticated_in_flight_request_access
   ansible.builtin.assert:
     that:
       - vault_configuration_listener_tcp.profiling.unauthenticated_in_flight_request_access is boolean
@@ -374,7 +374,7 @@
     - vault_configuration_listener_tcp.profiling is defined
     - vault_configuration_listener_tcp.profiling.unauthenticated_in_flight_request_access is defined
 
-- name: assert | Test if vault_configuration_storage_raft is set correctly
+- name: assert | Test vault_configuration_storage_raft
   ansible.builtin.assert:
     that:
       - vault_configuration_storage_raft is mapping
@@ -382,7 +382,7 @@
   when:
     - vault_configuration_storage_raft is defined
 
-- name: assert | Test if vault_configuration_storage_raft.path is set correctly
+- name: assert | Test vault_configuration_storage_raft.path
   ansible.builtin.assert:
     that:
       - vault_configuration_storage_raft.path is string
@@ -391,7 +391,7 @@
   when:
     - vault_configuration_storage_raft is defined
 
-- name: assert | Test if vault_configuration_storage_raft.node_id is set correctly
+- name: assert | Test vault_configuration_storage_raft.node_id
   ansible.builtin.assert:
     that:
       - vault_configuration_storage_raft.node_id is string
@@ -400,7 +400,7 @@
   when:
     - vault_configuration_storage_raft is defined
 
-- name: assert | Test if vault_configuration_storage_raft.performance_multiplier is set correctly
+- name: assert | Test vault_configuration_storage_raft.performance_multiplier
   ansible.builtin.assert:
     that:
       - vault_configuration_storage_raft.performance_multiplier is number
@@ -410,7 +410,7 @@
     - vault_configuration_storage_raft.performance_multiplier is defined
     - vault_configuration_storage_raft is defined
 
-- name: assert | Test if vault_configuration_storage_raft.trailing_logs is set correctly
+- name: assert | Test vault_configuration_storage_raft.trailing_logs
   ansible.builtin.assert:
     that:
       - vault_configuration_storage_raft.trailing_logs is number
@@ -420,7 +420,7 @@
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.trailing_logs is defined
 
-- name: assert | Test if vault_configuration_storage_raft.snapshot_threshold is set correctly
+- name: assert | Test vault_configuration_storage_raft.snapshot_threshold
   ansible.builtin.assert:
     that:
       - vault_configuration_storage_raft.snapshot_threshold is number
@@ -430,7 +430,7 @@
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.snapshot_threshold is defined
 
-- name: assert | Test if vault_configuration_storage_raft.retry_join is set correctly
+- name: assert | Test vault_configuration_storage_raft.retry_join
   ansible.builtin.assert:
     that:
       - vault_configuration_storage_raft.retry_join is iterable
@@ -439,7 +439,7 @@
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.retry_join is defined
 
-- name: assert | Test if item.leader_api_addr is set correctly
+- name: assert | Test item.leader_api_addr
   ansible.builtin.assert:
     that:
       - item.leader_api_addr is string
@@ -453,7 +453,7 @@
     - vault_configuration_storage_raft.retry_join is defined
     - item.leader_api_addr is defined
 
-- name: assert | Test if item.auto_join is set correctly
+- name: assert | Test item.auto_join
   ansible.builtin.assert:
     that:
       - item.auto_join is string
@@ -467,7 +467,7 @@
     - vault_configuration_storage_raft.retry_join is defined
     - item.auto_join is defined
 
-- name: assert | Test if item.auto_join_scheme is set correctly
+- name: assert | Test item.auto_join_scheme
   ansible.builtin.assert:
     that:
       - item.auto_join_scheme is string
@@ -481,7 +481,7 @@
     - vault_configuration_storage_raft.retry_join is defined
     - item.auto_join_scheme is defined
 
-- name: assert | Test if vault_configuration_storage_raft.retry_join.auto_join_port is set correctly
+- name: assert | Test vault_configuration_storage_raft.retry_join.auto_join_port
   ansible.builtin.assert:
     that:
       - item.auto_join_port is number
@@ -496,7 +496,7 @@
     - vault_configuration_storage_raft.retry_join is defined
     - item.auto_join_port is defined
 
-- name: assert | Test if item.leader_tls_servername is set correctly
+- name: assert | Test item.leader_tls_servername
   ansible.builtin.assert:
     that:
       - item.leader_tls_servername is string
@@ -510,7 +510,7 @@
     - vault_configuration_storage_raft.retry_join is defined
     - item.leader_tls_servername is defined
 
-- name: assert | Test if item.leader_ca_cert_file is set correctly
+- name: assert | Test item.leader_ca_cert_file
   ansible.builtin.assert:
     that:
       - item.leader_ca_cert_file is string
@@ -524,7 +524,7 @@
     - vault_configuration_storage_raft.retry_join is defined
     - item.leader_ca_cert_file is defined
 
-- name: assert | Test if item.leader_ca_cert is set correctly
+- name: assert | Test item.leader_ca_cert
   ansible.builtin.assert:
     that:
       - item.leader_ca_cert is string
@@ -540,7 +540,7 @@
     - item.leader_ca_cert is defined
 
 
-- name: assert | Test if item.leader_client_cert_file is set correctly
+- name: assert | Test item.leader_client_cert_file
   ansible.builtin.assert:
     that:
       - item.leader_client_cert_file is string
@@ -554,7 +554,7 @@
     - vault_configuration_storage_raft.retry_join is defined
     - item.leader_client_cert_file is defined
 
-- name: assert | Test if item.leader_client_key_file is set correctly
+- name: assert | Test item.leader_client_key_file
   ansible.builtin.assert:
     that:
       - item.leader_client_key_file is string
@@ -568,7 +568,7 @@
     - vault_configuration_storage_raft.retry_join is defined
     - item.leader_client_key_file is defined
 
-- name: assert | Test if item.leader_ca_cert is set correctly
+- name: assert | Test item.leader_ca_cert
   ansible.builtin.assert:
     that:
       - item.leader_ca_cert is string
@@ -582,7 +582,7 @@
     - vault_configuration_storage_raft.retry_join is defined
     - item.leader_ca_cert is defined
 
-- name: assert | Test if item.leader_client_cert is set correctly
+- name: assert | Test item.leader_client_cert
   ansible.builtin.assert:
     that:
       - item.leader_client_cert is string
@@ -596,7 +596,7 @@
     - vault_configuration_storage_raft.retry_join is defined
     - item.leader_client_cert is defined
 
-- name: assert | Test if item.leader_client_key is set correctly
+- name: assert | Test item.leader_client_key
   ansible.builtin.assert:
     that:
       - item.leader_client_key is string
@@ -610,7 +610,7 @@
     - vault_configuration_storage_raft.retry_join is defined
     - item.leader_client_key is defined
 
-- name: assert | Test if vault_configuration_storage_raft.retry_join_as_non_voter is set correctly
+- name: assert | Test vault_configuration_storage_raft.retry_join_as_non_voter
   ansible.builtin.assert:
     that:
       - vault_configuration_storage_raft.retry_join_as_non_voter is boolean
@@ -619,7 +619,7 @@
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.retry_join_as_non_voter is defined
 
-- name: assert | Test if vault_configuration_storage_raft.max_entry_size is set correctly
+- name: assert | Test vault_configuration_storage_raft.max_entry_size
   ansible.builtin.assert:
     that:
       - vault_configuration_storage_raft.max_entry_size is number
@@ -629,7 +629,7 @@
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.max_entry_size is defined
 
-- name: assert | Test if vault_configuration_storage_raft.autopilot_reconcile_interval is set correctly
+- name: assert | Test vault_configuration_storage_raft.autopilot_reconcile_interval
   ansible.builtin.assert:
     that:
       - vault_configuration_storage_raft.autopilot_reconcile_interval is string
@@ -639,7 +639,7 @@
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.autopilot_reconcile_interval is defined
 
-- name: assert | Test if vault_configuration_storage_raft.autopilot_update_interval is set correctly
+- name: assert | Test vault_configuration_storage_raft.autopilot_update_interval
   ansible.builtin.assert:
     that:
       - vault_configuration_storage_raft.autopilot_update_interval is string
@@ -649,7 +649,7 @@
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.autopilot_update_interval is defined
 
-- name: assert | Test if vault_configuration_storage_raft.autopilot_upgrade_version is set correctly
+- name: assert | Test vault_configuration_storage_raft.autopilot_upgrade_version
   ansible.builtin.assert:
     that:
       - vault_configuration_storage_raft.autopilot_upgrade_version is string
@@ -659,7 +659,7 @@
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.autopilot_upgrade_version is defined
 
-- name: assert | Test if vault_configuration_storage_raft.autopilot_redundancy_zone is set correctly
+- name: assert | Test vault_configuration_storage_raft.autopilot_redundancy_zone
   ansible.builtin.assert:
     that:
       - vault_configuration_storage_raft.autopilot_redundancy_zone is string
@@ -669,7 +669,7 @@
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.autopilot_redundancy_zone is defined
 
-- name: assert | Test if vault_configuration_seal_awskms is set correctly
+- name: assert | Test vault_configuration_seal_awskms
   ansible.builtin.assert:
     that:
       - vault_configuration_seal_awskms is mapping
@@ -677,7 +677,7 @@
   when:
     - vault_configuration_seal_awskms is defined
 
-- name: assert | Test if vault_configuration_seal_awskms.region is set correctly
+- name: assert | Test vault_configuration_seal_awskms.region
   ansible.builtin.assert:
     that:
       - vault_configuration_seal_awskms.region is string
@@ -687,7 +687,7 @@
     - vault_configuration_seal_awskms is defined
     - vault_configuration_seal_awskms.region is defined
 
-- name: assert | Test if vault_configuration_seal_awskms.access_key is set correctly
+- name: assert | Test vault_configuration_seal_awskms.access_key
   ansible.builtin.assert:
     that:
       - vault_configuration_seal_awskms.access_key is string
@@ -697,7 +697,7 @@
     - vault_configuration_seal_awskms is defined
     - vault_configuration_seal_awskms.access_key is defined
 
-- name: assert | Test if vault_configuration_seal_awskms.session_token is set correctly
+- name: assert | Test vault_configuration_seal_awskms.session_token
   ansible.builtin.assert:
     that:
       - vault_configuration_seal_awskms.session_token is string
@@ -707,7 +707,7 @@
     - vault_configuration_seal_awskms is defined
     - vault_configuration_seal_awskms.regsession_tokenion is defined
 
-- name: assert | Test if vault_configuration_seal_awskms.secret_key is set correctly
+- name: assert | Test vault_configuration_seal_awskms.secret_key
   ansible.builtin.assert:
     that:
       - vault_configuration_seal_awskms.secret_key is string
@@ -717,7 +717,7 @@
     - vault_configuration_seal_awskms is defined
     - vault_configuration_seal_awskms.secret_key is defined
 
-- name: assert | Test if vault_configuration_seal_awskms.kms_key_id is set correctly
+- name: assert | Test vault_configuration_seal_awskms.kms_key_id
   ansible.builtin.assert:
     that:
       - vault_configuration_seal_awskms.kms_key_id is string
@@ -727,7 +727,7 @@
     - vault_configuration_seal_awskms is defined
     - vault_configuration_seal_awskms.kms_key_id is defined
 
-- name: assert | Test if vault_configuration_seal_awskms.disabled is set correctly
+- name: assert | Test vault_configuration_seal_awskms.disabled
   ansible.builtin.assert:
     that:
       - vault_configuration_seal_awskms.disabled is boolean
@@ -736,7 +736,7 @@
     - vault_configuration_seal_awskms is defined
     - vault_configuration_seal_awskms.disabled is defined
 
-- name: assert | Test if vault_configuration_seal_awskms.endpoint is set correctly
+- name: assert | Test vault_configuration_seal_awskms.endpoint
   ansible.builtin.assert:
     that:
       - vault_configuration_seal_awskms.endpoint is string
@@ -746,7 +746,7 @@
     - vault_configuration_seal_awskms is defined
     - vault_configuration_seal_awskms.endpoint is defined
 
-- name: assert | Test if vault_configuration_seal_azurekeyvault is set correctly
+- name: assert | Test vault_configuration_seal_azurekeyvault
   ansible.builtin.assert:
     that:
       - vault_configuration_seal_azurekeyvault is mapping
@@ -754,7 +754,7 @@
   when:
     - vault_configuration_seal_azurekeyvault is defined
 
-- name: assert | Test if vault_configuration_seal_azurekeyvault.tenant_id is set correctly
+- name: assert | Test vault_configuration_seal_azurekeyvault.tenant_id
   ansible.builtin.assert:
     that:
       - vault_configuration_seal_azurekeyvault.tenant_id is string
@@ -764,7 +764,7 @@
     - vault_configuration_seal_azurekeyvault is defined
     - vault_configuration_seal_azurekeyvault.tenant_id is defined
 
-- name: assert | Test if vault_configuration_seal_azurekeyvault.client_id is set correctly
+- name: assert | Test vault_configuration_seal_azurekeyvault.client_id
   ansible.builtin.assert:
     that:
       - vault_configuration_seal_azurekeyvault.client_id is string
@@ -774,7 +774,7 @@
     - vault_configuration_seal_azurekeyvault is defined
     - vault_configuration_seal_azurekeyvault.client_id is defined
 
-- name: assert | Test if vault_configuration_seal_azurekeyvault.client_secret is set correctly
+- name: assert | Test vault_configuration_seal_azurekeyvault.client_secret
   ansible.builtin.assert:
     that:
       - vault_configuration_seal_azurekeyvault.client_secret is string
@@ -784,7 +784,7 @@
     - vault_configuration_seal_azurekeyvault is defined
     - vault_configuration_seal_azurekeyvault.client_secret is defined
 
-- name: assert | Test if vault_configuration_seal_azurekeyvault.environment is set correctly
+- name: assert | Test vault_configuration_seal_azurekeyvault.environment
   ansible.builtin.assert:
     that:
       - vault_configuration_seal_azurekeyvault.environment is string
@@ -794,7 +794,7 @@
     - vault_configuration_seal_azurekeyvault is defined
     - vault_configuration_seal_azurekeyvault.environment is defined
 
-- name: assert | Test if vault_configuration_seal_azurekeyvault.vault_name is set correctly
+- name: assert | Test vault_configuration_seal_azurekeyvault.vault_name
   ansible.builtin.assert:
     that:
       - vault_configuration_seal_azurekeyvault.vault_name is string
@@ -804,7 +804,7 @@
     - vault_configuration_seal_azurekeyvault is defined
     - vault_configuration_seal_azurekeyvault.vault_name is defined
 
-- name: assert | Test if vault_configuration_seal_azurekeyvault.key_name is set correctly
+- name: assert | Test vault_configuration_seal_azurekeyvault.key_name
   ansible.builtin.assert:
     that:
       - vault_configuration_seal_azurekeyvault.key_name is string
@@ -814,7 +814,7 @@
     - vault_configuration_seal_azurekeyvault is defined
     - vault_configuration_seal_azurekeyvault.key_name is defined
 
-- name: assert | Test if vault_configuration_seal_azurekeyvault.resource is set correctly
+- name: assert | Test vault_configuration_seal_azurekeyvault.resource
   ansible.builtin.assert:
     that:
       - vault_configuration_seal_azurekeyvault.resource is string
@@ -824,7 +824,7 @@
     - vault_configuration_seal_azurekeyvault is defined
     - vault_configuration_seal_azurekeyvault.resource is defined
 
-- name: assert | Test if vault_configuration_seal_azurekeyvault.disabled is set correctly
+- name: assert | Test vault_configuration_seal_azurekeyvault.disabled
   ansible.builtin.assert:
     that:
       - vault_configuration_seal_azurekeyvault.disabled is boolean
