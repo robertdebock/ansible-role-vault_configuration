@@ -152,7 +152,7 @@
         owner: root
         group: root
     - name: Write /etc/systemd/system/vault.service.d/override.conf
-      ansible.builtin.ini_file:
+      community.general.ini_file:
         section: Service
         option: ExecReload
         value: kill --signal HUP $MAINPID
