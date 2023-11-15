@@ -139,27 +139,3 @@
     group: "{{ vault_configuration_group }}"
   notify:
     - Restart Vault
-
-- name: Override /bin/kill in service
-  when:
-    - ansible_os_family == "Debian"
-  block:
-    - name: Create /etc/systemd/system/vault.service.d
-      ansible.builtin.file:
-        path: /etc/systemd/system/vault.service.d
-        state: directory
-        mode: "0755"
-        owner: root
-        group: root
-    - name: Write /etc/systemd/system/vault.service.d/override.conf
-      community.general.ini_file:
-        section: Service
-        option: ExecReload
-        value: kill --signal HUP $MAINPID
-        dest: /etc/systemd/system/vault.service.d/override.conf
-        no_extra_spaces: yes
-        mode: "0644"
-        owner: root
-        group: root
-      notify:
-        - Reload systemd
