@@ -162,7 +162,7 @@ storage "raft" {
     leader_tls_servername = "{{ item.leader_tls_servername }}"
 {% endif %}
 {%if item.leader_ca_cert_file is defined and item.leader_ca_cert_file != "" %}
-    leader_ca_cert_file = "{{ vault_configuration_tls_directory }}/ca.crt"
+    leader_ca_cert_file = "{{ vault_configuration_tls_directory }}/{{ item.leader_ca_cert_file | basename }}"
 {% endif %}
 {% if item.leader_ca_cert is defined and item.leader_ca_cert != "" %}
     leader_ca_cert_file = "{{ vault_configuration_tls_directory }}/ca.crt"
