@@ -24,8 +24,8 @@
   block:
     - name: Place TLS CA certificate file
       ansible.builtin.copy:
-        src: "{{ item.leader_ca_cert_file | basename }}"
-        dest: "{{ item.leader_ca_cert_file }}"
+        src: "{{ item.leader_ca_cert_file }}"
+        dest: "{{ vault_configuration_tls_directory }}/{{ item.leader_ca_cert_file | basename }}"
         mode: "0600"
         owner: "{{ vault_configuration_owner }}"
         group: "{{ vault_configuration_group }}"
@@ -40,7 +40,7 @@
     - name: Place TLS CA certificate
       ansible.builtin.copy:
         content: "{{ item.leader_ca_cert }}"
-        dest: "/opt/vault/tls/ca.crt"
+        dest: "{{ vault_configuration_tls_directory }}/ca.crt"
         mode: "0600"
         owner: "{{ vault_configuration_owner }}"
         group: "{{ vault_configuration_group }}"
@@ -59,7 +59,7 @@
     - name: Place TLS key
       ansible.builtin.copy:
         content: "{{ vault_configuration_listener_tcp.tls_key }}"
-        dest: /opt/vault/tls/vault.key
+        dest: "{{ vault_configuration_tls_directory }}/vault.key"
         mode: "0600"
         owner: "{{ vault_configuration_owner }}"
         group: "{{ vault_configuration_group }}"
@@ -70,8 +70,8 @@
 
     - name: Place TLS key file
       ansible.builtin.copy:
-        src: "{{ vault_configuration_listener_tcp.tls_key_file | basename }}"
-        dest: "/opt/vault/tls/{{ vault_configuration_listener_tcp.tls_key_file | basename }}"
+        src: "{{ vault_configuration_listener_tcp.tls_key_file }}"
+        dest: "{{ vault_configuration_tls_directory }}/{{ vault_configuration_listener_tcp.tls_key_file | basename }}"
         mode: "0600"
         owner: "{{ vault_configuration_owner }}"
         group: "{{ vault_configuration_group }}"
@@ -86,8 +86,8 @@
   block:
     - name: Place TLS certificate file
       ansible.builtin.copy:
-        src: "{{ vault_configuration_listener_tcp.tls_cert_file | basename }}"
-        dest: "/opt/vault/tls/{{ vault_configuration_listener_tcp.tls_cert_file | basename }}"
+        src: "{{ vault_configuration_listener_tcp.tls_cert_file }}"
+        dest: "{{ vault_configuration_tls_directory }}/{{ vault_configuration_listener_tcp.tls_cert_file | basename }}"
         mode: "0600"
         owner: "{{ vault_configuration_owner }}"
         group: "{{ vault_configuration_group }}"

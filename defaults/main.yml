@@ -19,6 +19,9 @@ vault_configuration_group: vault
 #   - name: no_proxy
 #     value: "direct.example.com,other.example.com"
 
+# Specify the location where TLS material should be placed. This is typically `/opt/vault/tls`.
+vault_configuration_tls_directory: "/opt/vault/tls"
+
 #
 # GLOBAL SETTINGS
 #

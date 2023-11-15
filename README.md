@@ -1,4 +1,4 @@
-# Ansible role [vault_configuration](#vault_configuration)
+# [Ansible role vault_configuration](#vault_configuration)
 
 Configure HashiCorp Vault on your system.
 
@@ -64,6 +64,9 @@ vault_configuration_group: vault
 #     value: "http://proxy.example.com:3128"
 #   - name: no_proxy
 #     value: "direct.example.com,other.example.com"
+
+# Specify the location where TLS material should be placed. This is typically `/opt/vault/tls`.
+vault_configuration_tls_directory: "/opt/vault/tls"
 
 #
 # GLOBAL SETTINGS
