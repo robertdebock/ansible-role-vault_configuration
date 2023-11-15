@@ -2,8 +2,9 @@
 # handlers file for vault_configuration
 
 - name: Reload systemd
-  ansible.builtin.systemd:
-    daemon_reload: yes
+  ansible.builtin.command:
+    cmd: systemctl daemon-reload  # noqa: command-instead-of-module
+  changed_when: yes
 
 - name: Reload Vault
   ansible.builtin.service:
