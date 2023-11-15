@@ -40,7 +40,7 @@
       - vault_configuration_tls_directory is string
       - vault_configuration_tls_directory is not none
     quiet: yes
-    
+
 - name: assert | Test vault_configuration_max_lease_ttl
   ansible.builtin.assert:
     that:
