@@ -30,7 +30,7 @@
         owner: "{{ vault_configuration_owner }}"
         group: "{{ vault_configuration_group }}"
       notify:
-        - Restart Vault
+        - Reload Vault
       loop: "{{ vault_configuration_storage_raft.retry_join }}"
       loop_control:
         label: "{{ item.leader_ca_cert_file | default('Not set') }}"
@@ -45,7 +45,7 @@
         owner: "{{ vault_configuration_owner }}"
         group: "{{ vault_configuration_group }}"
       notify:
-        - Restart Vault
+        - Reload Vault
       loop: "{{ vault_configuration_storage_raft.retry_join }}"
       loop_control:
         label: "A CA certificate"
@@ -66,7 +66,7 @@
       when:
         - vault_configuration_listener_tcp.tls_key is defined
       notify:
-        - Restart Vault
+        - Reload Vault
 
     - name: Place TLS key file
       ansible.builtin.copy:
@@ -78,7 +78,7 @@
       when:
         - vault_configuration_listener_tcp.tls_key_file is defined
       notify:
-        - Restart Vault
+        - Reload Vault
 
 - name: Place TLS certificate or TLS certificate file
   when:
@@ -92,7 +92,7 @@
         owner: "{{ vault_configuration_owner }}"
         group: "{{ vault_configuration_group }}"
       notify:
-        - Restart Vault
+        - Reload Vault
       when:
         - vault_configuration_listener_tcp.tls_cert_file is defined
 
@@ -104,7 +104,7 @@
         owner: "{{ vault_configuration_owner }}"
         group: "{{ vault_configuration_group }}"
       notify:
-        - Restart Vault
+        - Reload Vault
       when:
         - vault_configuration_listener_tcp.tls_cert is defined
 
@@ -116,7 +116,7 @@
     owner: "{{ vault_configuration_owner }}"
     group: "{{ vault_configuration_group }}"
   notify:
-    - Restart Vault
+    - Reload Vault
   when:
     - vault_configuration_license is defined
 
