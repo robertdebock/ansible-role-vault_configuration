@@ -73,16 +73,10 @@ listener "{{ listener.type }}" {
 {% if listener.tls_disable is defined and listener.tls_disable %}
   tls_disable = true
 {% endif %}
-{% if listener.tls_cert_file is defined and listener.tls_cert_file != "" %}
-  tls_cert_file = "{{ vault_configuration_tls_directory }}/{{ listener.tls_cert_file | basename }}"
-{% endif %}
 {% if listener.tls_cert is defined and listener.tls_cert != "" %}
   tls_cert_file = "{{ vault_configuration_tls_directory }}/tls.crt"
 {% endif %}
-{% if listener.tls_key_file is defined and listener.tls_key_file != "" %}
-  tls_key_file = "{{ vault_configuration_tls_directory }}/{{ listener.tls_key_file | basename }}"
-{% endif %}
-{% if listener.tls_key is defined and listener.tls_key != "" %}
+{% if (listener.tls_key is defined and listener.tls_key != "") or (listener.tls_key_file is defined and listener.tls_key_file != "") %}
   tls_key_file = "{{ vault_configuration_tls_directory }}/tls.key"
 {% endif %}
 {% if listener.tls_min_version is defined and listener.tls_min_version != "tls12" and not listener.tls_disable %}
@@ -173,10 +167,7 @@ storage "raft" {
 {% if item.leader_tls_servername is defined and item.leader_tls_servername != "" %}
     leader_tls_servername = "{{ item.leader_tls_servername }}"
 {% endif %}
-{%if item.leader_ca_cert_file is defined and item.leader_ca_cert_file != "" %}
-    leader_ca_cert_file = "{{ vault_configuration_tls_directory }}/{{ item.leader_ca_cert_file | basename }}"
-{% endif %}
-{% if item.leader_ca_cert is defined and item.leader_ca_cert != "" %}
+{% if (item.leader_ca_cert is defined and item.leader_ca_cert != "") or (item.leader_ca_cert_file is defined and item.leader_ca_cert_file != "") %}
     leader_ca_cert_file = "{{ vault_configuration_tls_directory }}/ca.crt"
 {% endif %}
 {% if item.leader_client_cert_file is defined and item.leader_client_cert_file != "" %}
