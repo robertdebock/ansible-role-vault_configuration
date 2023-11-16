@@ -73,7 +73,7 @@ listener "{{ listener.type }}" {
 {% if listener.tls_disable is defined and listener.tls_disable %}
   tls_disable = true
 {% endif %}
-{% if listener.tls_cert is defined and listener.tls_cert != "" %}
+{% if (listener.tls_cert is defined and listener.tls_cert != "") or (listener.tls_cert_file is defined and listener.tls_cert_file != "") %}
   tls_cert_file = "{{ vault_configuration_tls_directory }}/tls.crt"
 {% endif %}
 {% if (listener.tls_key is defined and listener.tls_key != "") or (listener.tls_key_file is defined and listener.tls_key_file != "") %}
