@@ -121,266 +121,428 @@
     - vault_configuration_log_level is defined
     - vault_configuration_log_level | length > 0
 
-- name: assert | Test vault_configuration_listener_tcp
+- name: assert | Test vault_configuration_listeners
   ansible.builtin.assert:
     that:
-      - vault_configuration_listener_tcp is defined
-      - vault_configuration_listener_tcp is mapping
+      - vault_configuration_listeners is defined
+      - vault_configuration_listeners is iterable
     quiet: yes
 
-- name: assert | Test vault_configuration_listener_tcp.address
+- name: assert | Test vault_configuration_listeners.type
   ansible.builtin.assert:
     that:
-      - vault_configuration_listener_tcp.address is defined
-      - vault_configuration_listener_tcp.address is string
-      - vault_configuration_listener_tcp.address is not none
+      - item.type is defined
+      - item.type is string
+      - item.type in [ "tcp", "unix" ]
     quiet: yes
+  loop: "{{ vault_configuration_listeners }}"
+  loop_control:
+    label: "{{ item.address }}"
 
-- name: assert | Test vault_configuration_listener_tcp.cluster_address
+- name: assert | Test vault_configuration_listeners.address
   ansible.builtin.assert:
     that:
-      - vault_configuration_listener_tcp.cluster_address is defined
-      - vault_configuration_listener_tcp.cluster_address is string
-      - vault_configuration_listener_tcp.cluster_address is not none
+      - item.address is defined
+      - item.address is string
+      - item.address is not none
     quiet: yes
+  loop: "{{ vault_configuration_listeners }}"
+  loop_control:
+    label: "{{ item.address }}"
+
+- name: assert | Test vault_configuration_listeners.cluster_address
+  ansible.builtin.assert:
+    that:
+      - item.cluster_address is defined
+      - item.cluster_address is string
+      - item.cluster_address is not none
+    quiet: yes
+  loop: "{{ vault_configuration_listeners }}"
+  loop_control:
+    label: "{{ item.address }}"
   when:
     - not vault_configuration_disable_clustering
+    - item.type == "tcp"
 
-- name: assert | Test vault_configuration_listener_tcp.http_idle_timeout
+- name: assert | Test vault_configuration_listeners.http_idle_timeout
   ansible.builtin.assert:
     that:
-      - vault_configuration_listener_tcp.http_idle_timeout is defined
+      - item.http_idle_timeout is string
     quiet: yes
+  loop: "{{ vault_configuration_listeners }}"
+  loop_control:
+    label: "{{ item.address }}"
   when:
-    - vault_configuration_listener_tcp.http_idle_timeout is string
+    - item.http_idle_timeout is defined
+    - item.type == "tcp"
 
-- name: assert | Test vault_configuration_listener_tcp.http_read_header_timeout
+- name: assert | Test vault_configuration_listeners.http_read_header_timeout
   ansible.builtin.assert:
     that:
-      - vault_configuration_listener_tcp.http_read_header_timeout is defined
+      - item.http_read_header_timeout is string
     quiet: yes
+  loop: "{{ vault_configuration_listeners }}"
+  loop_control:
+    label: "{{ item.address }}"
   when:
-    - vault_configuration_listener_tcp.http_read_header_timeout is string
+    - vault_configuration_listener.http_read_header_timeout is defined
+    - item.type == "tcp"
 
-- name: assert | Test vault_configuration_listener_tcp.http_read_timeout
+- name: assert | Test vault_configuration_listeners.http_read_timeout
   ansible.builtin.assert:
     that:
-      - vault_configuration_listener_tcp.http_read_timeout is defined
+      - item.http_read_timeout is defined
     quiet: yes
+  loop: "{{ vault_configuration_listeners }}"
+  loop_control:
+    label: "{{ item.address }}"
   when:
-    - vault_configuration_listener_tcp.http_read_timeout is string
+    - item.http_read_timeout is string
+    - item.type == "tcp"
 
-- name: assert | Test vault_configuration_listener_tcp.http_write_timeout
+- name: assert | Test vault_configuration_listeners.http_write_timeout
   ansible.builtin.assert:
     that:
-      - vault_configuration_listener_tcp.http_write_timeout is not none
-      - vault_configuration_listener_tcp.http_write_timeout is string or
-        vault_configuration_listener_tcp.http_write_timeout is number
+      - item.http_write_timeout is not none
+      - item.http_write_timeout is string or
+        item.http_write_timeout is number
     quiet: yes
+  loop: "{{ vault_configuration_listeners }}"
+  loop_control:
+    label: "{{ item.address }}"
   when:
-    - vault_configuration_listener_tcp.http_write_timeout is defined
+    - item.http_write_timeout is defined
+    - item.type == "tcp"
 
-- name: assert | Test vault_configuration_listener_tcp.max_request_size
+- name: assert | Test vault_configuration_listeners.max_request_size
   ansible.builtin.assert:
     that:
-      - vault_configuration_listener_tcp.max_request_size is number
+      - item.max_request_size is number
     quiet: yes
+  loop: "{{ vault_configuration_listeners }}"
+  loop_control:
+    label: "{{ item.address }}"
   when:
-    - vault_configuration_listener_tcp.max_request_size is defined
+    - item.max_request_size is defined
+    - item.type == "tcp"
 
-- name: assert | Test vault_configuration_listener_tcp.max_request_duration
+- name: assert | Test vault_configuration_listeners.max_request_duration
   ansible.builtin.assert:
     that:
-      - vault_configuration_listener_tcp.max_request_duration is string
-      - vault_configuration_listener_tcp.max_request_duration is not none
+      - item.max_request_duration is string
+      - item.max_request_duration is not none
     quiet: yes
+  loop: "{{ vault_configuration_listeners }}"
+  loop_control:
+    label: "{{ item.address }}"
   when:
-    - vault_configuration_listener_tcp.max_request_duration is defined
+    - item.max_request_duration is defined
+    - item.type == "tcp"
 
-- name: assert | Test vault_configuration_listener_tcp.proxy_protocol_behavior
+- name: assert | Test vault_configuration_listeners.proxy_protocol_behavior
   ansible.builtin.assert:
     that:
-      - vault_configuration_listener_tcp.proxy_protocol_behavior is string
-      - vault_configuration_listener_tcp.proxy_protocol_behavior in [ "use_always", "allow_authorized", "deny_unauthorized" ]
+      - item.proxy_protocol_behavior is string
+      - item.proxy_protocol_behavior in [ "use_always", "allow_authorized", "deny_unauthorized" ]
     quiet: yes
+  loop: "{{ vault_configuration_listeners }}"
+  loop_control:
+    label: "{{ item.address }}"
   when:
-    - vault_configuration_listener_tcp.proxy_protocol_behavior is defined
-    - vault_configuration_listener_tcp.proxy_protocol_behavior | length > 0
+    - item.proxy_protocol_behavior is defined
+    - item.proxy_protocol_behavior | length > 0
+    - item.type == "tcp"
 
-- name: assert | Test vault_configuration_listener_tcp.proxy_protocol_authorized_addrs
+- name: assert | Test vault_configuration_listeners.proxy_protocol_authorized_addrs
   ansible.builtin.assert:
     that:
-      - vault_configuration_listener_tcp.proxy_protocol_authorized_addrs is string
-      - vault_configuration_listener_tcp.proxy_protocol_authorized_addrs is not none
+      - item.proxy_protocol_authorized_addrs is string
+      - item.proxy_protocol_authorized_addrs is not none
     quiet: yes
+  loop: "{{ vault_configuration_listeners }}"
+  loop_control:
+    label: "{{ item.address }}"
   when:
-    - vault_configuration_listener_tcp.proxy_protocol_authorized_addrs is defined
+    - item.proxy_protocol_authorized_addrs is defined
+    - item.type == "tcp"
 
-- name: assert | Test vault_configuration_listener_tcp.tls_disable
+- name: assert | Test vault_configuration_listeners.tls_disable
   ansible.builtin.assert:
     that:
-      - vault_configuration_listener_tcp.tls_disable is boolean
+      - item.tls_disable is boolean
     quiet: yes
+  loop: "{{ vault_configuration_listeners }}"
+  loop_control:
+    label: "{{ item.address }}"
   when:
-    - vault_configuration_listener_tcp.tls_disable is defined
+    - item.tls_disable is defined
+    - item.type == "tcp"
 
-- name: assert | Test vault_configuration_listener_tcp.tls_cert_file
+- name: assert | Test vault_configuration_listeners.tls_cert_file
   ansible.builtin.assert:
     that:
-      - vault_configuration_listener_tcp.tls_cert_file is string
-      - vault_configuration_listener_tcp.tls_cert_file is not none
+      - item.tls_cert_file is string
+      - item.tls_cert_file is not none
     quiet: yes
+  loop: "{{ vault_configuration_listeners }}"
+  loop_control:
+    label: "{{ item.address }}"
   when:
-    - vault_configuration_listener_tcp.tls_cert_file is defined
+    - item.tls_cert_file is defined
+    - item.type == "tcp"
 
-- name: assert | Test vault_configuration_listener_tcp.tls_cert
+- name: assert | Test vault_configuration_listeners.tls_cert
   ansible.builtin.assert:
     that:
-      - vault_configuration_listener_tcp.tls_cert is string
-      - vault_configuration_listener_tcp.tls_cert is not none
-      - vault_configuration_listener_tcp.tls_cert_file is not defined
+      - item.tls_cert is string
+      - item.tls_cert is not none
+      - item.tls_cert_file is not defined
     quiet: yes
+  loop: "{{ vault_configuration_listeners }}"
+  loop_control:
+    label: "{{ item.address }}"
   when:
-    - vault_configuration_listener_tcp.tls_cert is defined
+    - item.tls_cert is defined
+    - item.type == "tcp"
 
-- name: assert | Test vault_configuration_listener_tcp.tls_key_file
+- name: assert | Test vault_configuration_listeners.tls_key_file
   ansible.builtin.assert:
     that:
-      - vault_configuration_listener_tcp.tls_key_file is string
-      - vault_configuration_listener_tcp.tls_key_file is not none
+      - item.tls_key_file is string
+      - item.tls_key_file is not none
     quiet: yes
+  loop: "{{ vault_configuration_listeners }}"
+  loop_control:
+    label: "{{ item.address }}"
   when:
-    - vault_configuration_listener_tcp.tls_key_file is defined
+    - item.tls_key_file is defined
+    - item.type == "tcp"
 
-- name: assert | Test vault_configuration_listener_tcp.tls_key
+- name: assert | Test vault_configuration_listeners.tls_key
   ansible.builtin.assert:
     that:
-      - vault_configuration_listener_tcp.tls_key is string
-      - vault_configuration_listener_tcp.tls_key is not none
-      - vault_configuration_listener_tcp.tls_key_file is not defined
+      - item.tls_key is string
+      - item.tls_key is not none
+      - item.tls_key_file is not defined
     quiet: yes
+  loop: "{{ vault_configuration_listeners }}"
+  loop_control:
+    label: "{{ item.address }}"
   when:
-    - vault_configuration_listener_tcp.tls_key is defined
+    - item.tls_key is defined
+    - item.type == "tcp"
 
-- name: assert | Test vault_configuration_listener_tcp.tls_min_version
+- name: assert | Test vault_configuration_listeners.tls_min_version
   ansible.builtin.assert:
     that:
-      - vault_configuration_listener_tcp.tls_min_version is string
-      - vault_configuration_listener_tcp.tls_min_version in [ "tls10", "tls11", "tls12", "tls13" ]
+      - item.tls_min_version is string
+      - item.tls_min_version in [ "tls10", "tls11", "tls12", "tls13" ]
     quiet: yes
+  loop: "{{ vault_configuration_listeners }}"
+  loop_control:
+    label: "{{ item.address }}"
   when:
-    - vault_configuration_listener_tcp.tls_min_version is defined
+    - item.tls_min_version is defined
+    - item.type == "tcp"
 
-- name: assert | Test vault_configuration_listener_tcp.tls_cipher_suites
+- name: assert | Test vault_configuration_listeners.tls_cipher_suites
   ansible.builtin.assert:
     that:
-      - vault_configuration_listener_tcp.tls_cipher_suites is string
-      - vault_configuration_listener_tcp.tls_cipher_suites is not none
+      - item.tls_cipher_suites is string
+      - item.tls_cipher_suites is not none
     quiet: yes
+  loop: "{{ vault_configuration_listeners }}"
+  loop_control:
+    label: "{{ item.address }}"
   when:
-    - vault_configuration_listener_tcp.tls_cipher_suites is defined
+    - item.tls_cipher_suites is defined
+    - item.type == "tcp"
 
-- name: assert | Test vault_configuration_listener_tcp.tls_require_and_verify_client_cert
+- name: assert | Test vault_configuration_listeners.tls_require_and_verify_client_cert
   ansible.builtin.assert:
     that:
-      - vault_configuration_listener_tcp.tls_require_and_verify_client_cert is boolean
+      - item.tls_require_and_verify_client_cert is boolean
     quiet: yes
+  loop: "{{ vault_configuration_listeners }}"
+  loop_control:
+    label: "{{ item.address }}"
   when:
-    - vault_configuration_listener_tcp.tls_require_and_verify_client_cert is defined
+    - item.tls_require_and_verify_client_cert is defined
+    - item.type == "tcp"
 
-- name: assert | Test vault_configuration_listener_tcp.tls_client_ca_file
+- name: assert | Test vault_configuration_listeners.tls_client_ca_file
   ansible.builtin.assert:
     that:
-      - vault_configuration_listener_tcp.tls_client_ca_file is string
-      - vault_configuration_listener_tcp.tls_client_ca_file is not none
+      - item.tls_client_ca_file is string
+      - item.tls_client_ca_file is not none
     quiet: yes
+  loop: "{{ vault_configuration_listeners }}"
+  loop_control:
+    label: "{{ item.address }}"
   when:
-    - vault_configuration_listener_tcp.tls_client_ca_file is defined
+    - item.tls_client_ca_file is defined
+    - item.type == "tcp"
 
-- name: assert | Test vault_configuration_listener_tcp.tls_disable_client_certs
+- name: assert | Test vault_configuration_listeners.tls_disable_client_certs
   ansible.builtin.assert:
     that:
-      - vault_configuration_listener_tcp.tls_disable_client_certs is boolean
+      - item.tls_disable_client_certs is boolean
     quiet: yes
+  loop: "{{ vault_configuration_listeners }}"
+  loop_control:
+    label: "{{ item.address }}"
   when:
-    - vault_configuration_listener_tcp.tls_disable_client_certs is defined
+    - item.tls_disable_client_certs is defined
+    - item.type == "tcp"
 
-- name: assert | Test vault_configuration_listener_tcp.x_forwarded_for_authorized_addrs
+- name: assert | Test vault_configuration_listeners.x_forwarded_for_authorized_addrs
   ansible.builtin.assert:
     that:
-      - vault_configuration_listener_tcp.x_forwarded_for_authorized_addrs is string
-      - vault_configuration_listener_tcp.x_forwarded_for_authorized_addrs is not none
+      - item.x_forwarded_for_authorized_addrs is string
+      - item.x_forwarded_for_authorized_addrs is not none
     quiet: yes
+  loop: "{{ vault_configuration_listeners }}"
+  loop_control:
+    label: "{{ item.address }}"
   when:
-    - vault_configuration_listener_tcp.x_forwarded_for_authorized_addrs is defined
+    - item.x_forwarded_for_authorized_addrs is defined
+    - item.type == "tcp"
 
-- name: assert | Test vault_configuration_listener_tcp.x_forwarded_for_hop_skips
+- name: assert | Test vault_configuration_listeners.x_forwarded_for_hop_skips
   ansible.builtin.assert:
     that:
-      - vault_configuration_listener_tcp.x_forwarded_for_hop_skips is number
-      - vault_configuration_listener_tcp.x_forwarded_for_hop_skips >= 0
+      - item.x_forwarded_for_hop_skips is number
+      - item.x_forwarded_for_hop_skips >= 0
     quiet: yes
+  loop: "{{ vault_configuration_listeners }}"
+  loop_control:
+    label: "{{ item.address }}"
   when:
-    - vault_configuration_listener_tcp.x_forwarded_for_hop_skips is defined
+    - item.x_forwarded_for_hop_skips is defined
+    - item.type == "tcp"
 
-- name: assert | Test vault_configuration_listener_tcp.x_forwarded_for_reject_not_authorized
+- name: assert | Test vault_configuration_listeners.x_forwarded_for_reject_not_authorized
   ansible.builtin.assert:
     that:
-      - vault_configuration_listener_tcp.x_forwarded_for_reject_not_authorized is boolean
+      - item.x_forwarded_for_reject_not_authorized is boolean
     quiet: yes
+  loop: "{{ vault_configuration_listeners }}"
+  loop_control:
+    label: "{{ item.address }}"
   when:
-    - vault_configuration_listener_tcp.x_forwarded_for_reject_not_authorized is defined
+    - item.x_forwarded_for_reject_not_authorized is defined
+    - item.type == "tcp"
 
-- name: assert | Test vault_configuration_listener_tcp.x_forwarded_for_reject_not_present
+- name: assert | Test vault_configuration_listeners.x_forwarded_for_reject_not_present
   ansible.builtin.assert:
     that:
-      - vault_configuration_listener_tcp.x_forwarded_for_reject_not_present is boolean
+      - item.x_forwarded_for_reject_not_present is boolean
     quiet: yes
+  loop: "{{ vault_configuration_listeners }}"
+  loop_control:
+    label: "{{ item.address }}"
   when:
-    - vault_configuration_listener_tcp.x_forwarded_for_reject_not_present is defined
+    - item.x_forwarded_for_reject_not_present is defined
+    - item.type == "tcp"
 
-- name: assert | Test vault_configuration_listener_tcp.telemetry
+- name: assert | Test vault_configuration_listeners.telemetry
   ansible.builtin.assert:
     that:
-      - vault_configuration_listener_tcp.telemetry is mapping
+      - item.telemetry is mapping
     quiet: yes
+  loop: "{{ vault_configuration_listeners }}"
+  loop_control:
+    label: "{{ item.address }}"
   when:
-    - vault_configuration_listener_tcp.telemetry is defined
+    - item.telemetry is defined
+    - item.type == "tcp"
 
-- name: assert | Test vault_configuration_listener_tcp.telemetry.unauthenticated_metrics_access
+- name: assert | Test vault_configuration_listeners.telemetry.unauthenticated_metrics_access
   ansible.builtin.assert:
     that:
-      - vault_configuration_listener_tcp.telemetry.unauthenticated_metrics_access is boolean
+      - item.telemetry.unauthenticated_metrics_access is boolean
     quiet: yes
+  loop: "{{ vault_configuration_listeners }}"
+  loop_control:
+    label: "{{ item.address }}"
   when:
-    - vault_configuration_listener_tcp.telemetry.unauthenticated_metrics_access is defined
-    - vault_configuration_listener_tcp.telemetry is defined
+    - item.telemetry.unauthenticated_metrics_access is defined
+    - item.telemetry is defined
+    - item.type == "tcp"
 
-- name: assert | Test vault_configuration_listener_tcp.profiling
+- name: assert | Test vault_configuration_listeners.profiling
   ansible.builtin.assert:
     that:
-      - vault_configuration_listener_tcp.profiling is mapping
+      - item.profiling is mapping
     quiet: yes
+  loop: "{{ vault_configuration_listeners }}"
+  loop_control:
+    label: "{{ item.address }}"
   when:
-    - vault_configuration_listener_tcp.profiling is defined
+    - item.profiling is defined
+    - item.type == "tcp"
 
-- name: assert | Test vault_configuration_listener_tcp.profiling.unauthenticated_pprof_access
+- name: assert | Test vault_configuration_listeners.profiling.unauthenticated_pprof_access
   ansible.builtin.assert:
     that:
-      - vault_configuration_listener_tcp.profiling.unauthenticated_pprof_access is boolean
+      - item.profiling.unauthenticated_pprof_access is boolean
     quiet: yes
+  loop: "{{ vault_configuration_listeners }}"
+  loop_control:
+    label: "{{ item.address }}"
   when:
-    - vault_configuration_listener_tcp.profiling is defined
-    - vault_configuration_listener_tcp.profiling.unauthenticated_pprof_access is defined
+    - item.profiling is defined
+    - item.profiling.unauthenticated_pprof_access is defined
+    - item.type == "tcp"
 
-- name: assert | Test vault_configuration_listener_tcp.profiling.unauthenticated_in_flight_request_access
+- name: assert | Test vault_configuration_listeners.profiling.unauthenticated_in_flight_request_access
   ansible.builtin.assert:
     that:
-      - vault_configuration_listener_tcp.profiling.unauthenticated_in_flight_request_access is boolean
+      - item.profiling.unauthenticated_in_flight_request_access is boolean
     quiet: yes
+  loop: "{{ vault_configuration_listeners }}"
+  loop_control:
+    label: "{{ item.address }}"
   when:
-    - vault_configuration_listener_tcp.profiling is defined
-    - vault_configuration_listener_tcp.profiling.unauthenticated_in_flight_request_access is defined
+    - item.profiling is defined
+    - item.profiling.unauthenticated_in_flight_request_access is defined
+    - item.type == "tcp"
+
+- name: assert | Test vault_configuration_listeners.socket_mode
+  ansible.builtin.assert:
+    that:
+      - item.socket_mode is string
+    quiet: yes
+  loop: "{{ vault_configuration_listeners }}"
+  loop_control:
+    label: "{{ item.address }}"
+  when:
+    - item.socket_mode is defined
+    - item.type == "unix"
+
+- name: assert | Test vault_configuration_listeners.socket_user
+  ansible.builtin.assert:
+    that:
+      - item.socket_user is string
+    quiet: yes
+  loop: "{{ vault_configuration_listeners }}"
+  loop_control:
+    label: "{{ item.address }}"
+  when:
+    - item.socket_user is defined
+    - item.type == "unix"
+
+- name: assert | Test vault_configuration_listeners.socket_group
+  ansible.builtin.assert:
+    that:
+      - item.socket_group is string
+    quiet: yes
+  loop: "{{ vault_configuration_listeners }}"
+  loop_control:
+    label: "{{ item.address }}"
+  when:
+    - item.socket_group is defined
+    - item.type == "unix"
 
 - name: assert | Test vault_configuration_storage_raft
   ansible.builtin.assert:

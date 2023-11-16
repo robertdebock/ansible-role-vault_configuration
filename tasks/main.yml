@@ -54,43 +54,52 @@
 
 - name: Place TLS key or TLS key file
   when:
-    - vault_configuration_listener_tcp is defined
+    - vault_configuration_listeners is defined
   block:
     - name: Place TLS key
       ansible.builtin.copy:
-        content: "{{ vault_configuration_listener_tcp.tls_key }}"
-        dest: "{{ vault_configuration_tls_directory }}/vault.key"
+        content: "{{ item.tls_key }}"
+        dest: "{{ vault_configuration_tls_directory }}/tls.key"
         mode: "0600"
         owner: "{{ vault_configuration_owner }}"
         group: "{{ vault_configuration_group }}"
+      loop: "{{ vault_configuration_listeners }}"
+      loop_control:
+        label: "A hidden TLS key"
       when:
-        - vault_configuration_listener_tcp.tls_key is defined
+        - vault_configuration_listeners.tls_key is defined
       notify:
         - Reload Vault
 
     - name: Place TLS key file
       ansible.builtin.copy:
-        src: "{{ vault_configuration_listener_tcp.tls_key_file }}"
-        dest: "{{ vault_configuration_tls_directory }}/{{ vault_configuration_listener_tcp.tls_key_file | basename }}"
+        src: "{{ item.tls_key_file }}"
+        dest: "{{ vault_configuration_tls_directory }}/{{ item.tls_key_file | basename }}"
         mode: "0600"
         owner: "{{ vault_configuration_owner }}"
         group: "{{ vault_configuration_group }}"
+      loop: "{{ vault_configuration_listeners }}"
+      loop_control:
+        label: "A hidden TLS key"
       when:
-        - vault_configuration_listener_tcp.tls_key_file is defined
+        - item.tls_key_file is defined
       notify:
         - Reload Vault
 
 - name: Place TLS certificate or TLS certificate file
   when:
-    - vault_configuration_listener_tcp is defined
+    - vault_configuration_listeners is defined
   block:
     - name: Place TLS certificate file
       ansible.builtin.copy:
-        src: "{{ vault_configuration_listener_tcp.tls_cert_file }}"
-        dest: "{{ vault_configuration_tls_directory }}/{{ vault_configuration_listener_tcp.tls_cert_file | basename }}"
+        src: "{{ item.tls_cert_file }}"
+        dest: "{{ vault_configuration_tls_directory }}/{{ item.tls_cert_file | basename }}"
         mode: "0600"
         owner: "{{ vault_configuration_owner }}"
         group: "{{ vault_configuration_group }}"
+      loop: "{{ vault_configuration_listeners }}"
+      loop_control:
+        label: "{{ item.tls_cert_file | default('Not set') }}"
       notify:
         - Reload Vault
       when:
@@ -98,11 +107,14 @@
 
     - name: Place TLS certificate
       ansible.builtin.copy:
-        content: "{{ vault_configuration_listener_tcp.tls_cert }}"
-        dest: "/opt/vault/tls/vault.crt"
+        content: "{{ item.tls_cert }}"
+        dest: "/opt/vault/tls/tls.crt"
         mode: "0600"
         owner: "{{ vault_configuration_owner }}"
         group: "{{ vault_configuration_group }}"
+      loop: "{{ vault_configuration_listeners }}"
+      loop_control:
+        label: "A long TLS certificate"
       notify:
         - Reload Vault
       when:
@@ -129,6 +141,19 @@
     group: "{{ vault_configuration_group }}"
   notify:
     - Restart Vault
+
+- name: Create socket directory
+  ansible.builtin.file:
+    path: "{{ item.address | dirname }}"
+    state: directory
+    mode: "0755"
+    owner: "{{ vault_configuration_owner }}"
+    group: "{{ vault_configuration_group }}"
+  loop: "{{ vault_configuration_listeners }}"
+  loop_control:
+    label: "{{ item.address | dirname  }}"
+  when:
+    - item.type == "unix"
 
 - name: Place Vault configuration
   ansible.builtin.template:

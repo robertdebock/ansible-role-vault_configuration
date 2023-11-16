@@ -10,3 +10,9 @@
         cmd: vault operator init
       environment:
         VAULT_SKIP_VERIFY: "True"
+
+    - name: Use socket
+      ansible.builtin.command:
+        cmd: vault status
+      environment:
+        VAULT_ADDR: "unix:///run/vault/vault.sock"
