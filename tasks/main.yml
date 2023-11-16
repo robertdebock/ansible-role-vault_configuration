@@ -151,7 +151,7 @@
     group: "{{ vault_configuration_group }}"
   loop: "{{ vault_configuration_listeners }}"
   loop_control:
-    label: "{{ item.address | dirname  }}"
+    label: "{{ item.address | dirname }}"
   when:
     - item.type == "unix"
 
