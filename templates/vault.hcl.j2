@@ -89,7 +89,7 @@ listener "{{ listener.type }}" {
   tls_require_and_verify_client_cert = true
 {% endif %}
 {% if listener.tls_client_ca_file is defined and listener.tls_client_ca_file != "" %}
-  tls_client_ca_file = "{{ vault_configuration_tls_directory }}/{{ listener.tls_client_ca_file | basename }}"
+  tls_client_ca_file = "{{ vault_configuration_tls_directory }}/ca.crt"
 {% endif %}
 {% if listener.tls_disable_client_certs is defined and listener.tls_disable_client_certs %}
   tls_disable_client_certs = true
@@ -171,10 +171,10 @@ storage "raft" {
     leader_ca_cert_file = "{{ vault_configuration_tls_directory }}/ca.crt"
 {% endif %}
 {% if item.leader_client_cert_file is defined and item.leader_client_cert_file != "" %}
-    leader_client_cert_file = "{{ vault_configuration_tls_directory }}/{{ item.leader_client_cert_file | basename }}"
+    leader_client_cert_file = "{{ vault_configuration_tls_directory }}/tls.crt"
 {% endif %}
 {% if item.leader_client_key_file is defined and item.leader_client_key_file != "" %}
-    leader_client_key_file = "{{ vault_configuration_tls_directory }}/{{ item.leader_client_key_file | basename }}"
+    leader_client_key_file = "{{ vault_configuration_tls_directory }}/tls.key"
 {% endif %}
 {% if item.leader_client_cert is defined and item.leader_client_cert != "" %}
     leader_client_cert = "{{ item.leader_client_cert }}"
