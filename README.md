@@ -316,22 +316,21 @@ vault_configuration_storage_raft:
 #   disabled: no
 
 # An HSM supporting PKCS11 can be used to unseal Vault.
-# NOT IMPLEMENTED.
 # vault_configuration_seal_pkcs11:
-#   lib:
-#   slot:
-#   token_label:
-#   pin:
-#   key_label:
-#   default_key_label:
-#   key_id:
-#   hmac_key_label:
-#   default_hmac_key_label:
-#   hmac_key_id:
-#   mechanism:
-#   hmac_mechanism:
-#   generate_key:
-#   force_rw_session:
+#   lib: "/usr/vault/lib/libCryptoki2_64.so"
+#   slot: "2305843009213693953"
+#   # token_label: ""
+#   pin: "AAAA-BBBB-CCCC-DDDD"
+#   key_label: "vault-hsm-key"
+#   # default_key_label: ""
+#   # key_id: ""
+#   hmac_key_label: "vault-hsm-hmac-key"
+#   # default_hmac_key_label: ""
+#   # hmac_key_id: ""
+#   # mechanism: ""
+#   # hmac_mechanism: ""
+#   # generate_key: ""
+#   # force_rw_session: ""
 #   disabled: no
 
 # Another Vault (with the Transit secrets engine) can be used to unseal Vault.

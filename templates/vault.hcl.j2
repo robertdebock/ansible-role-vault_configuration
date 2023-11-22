@@ -260,3 +260,53 @@ seal "azurekeyvault" {
 {% endif %}
 }
 {% endif %}
+
+{% if vault_configuration_seal_pkcs11 is defined %}
+seal "pkcs11" {
+{% if vault_configuration_seal_pkcs11.lib is defined and vault_configuration_seal_pkcs11.lib != "" %}
+  lib = "{{ vault_configuration_seal_pkcs11.lib }}"
+{% endif %}
+{% if vault_configuration_seal_pkcs11.slot is defined and vault_configuration_seal_pkcs11.slot != "" %}
+  slot = "{{ vault_configuration_seal_pkcs11.slot }}"
+{% endif %}
+{% if vault_configuration_seal_pkcs11.token_label is defined and vault_configuration_seal_pkcs11.token_label != "" %}
+  token_label = "{{ vault_configuration_seal_pkcs11.token_label }}"
+{% endif %}
+{% if vault_configuration_seal_pkcs11.pin is defined and vault_configuration_seal_pkcs11.pin != "" %}
+  pin = "{{ vault_configuration_seal_pkcs11.pin }}"
+{% endif %}
+{% if vault_configuration_seal_pkcs11.key_label is defined and vault_configuration_seal_pkcs11.key_label != "" %}
+  key_label = "{{ vault_configuration_seal_pkcs11.key_label }}"
+{% endif %}
+{% if vault_configuration_seal_pkcs11.default_key_label is defined and vault_configuration_seal_pkcs11.default_key_label != "" %}
+  default_key_label = "{{ vault_configuration_seal_pkcs11.default_key_label }}"
+{% endif %}
+{% if vault_configuration_seal_pkcs11.key_id is defined and vault_configuration_seal_pkcs11.key_id != "" %}
+  hmac_key_label = "{{ vault_configuration_seal_pkcs11.hmac_key_label }}"
+{% endif %}
+{% if vault_configuration_seal_pkcs11.hmac_key_label is defined and vault_configuration_seal_pkcs11.hmac_key_label != "" %}
+  hmac_key_label = "{{ vault_configuration_seal_pkcs11.hmac_key_label }}"
+{% endif %}
+{% if vault_configuration_seal_pkcs11.default_hmac_key_label is defined and vault_configuration_seal_pkcs11.default_hmac_key_label != "" %}
+  default_hmac_key_label = "{{ vault_configuration_seal_pkcs11.default_hmac_key_label }}"
+{% endif %}
+{% if vault_configuration_seal_pkcs11.key_id is defined and vault_configuration_seal_pkcs11.hmac_key_id != "" %}
+  hmac_key_id = "{{ vault_configuration_seal_pkcs11.hmac_key_id }}"
+{% endif %}
+{% if vault_configuration_seal_pkcs11.mechanism is defined and vault_configuration_seal_pkcs11.mechanism != "" %}
+  mechanism = "{{ vault_configuration_seal_pkcs11.mechanism }}"
+{% endif %}
+{% if vault_configuration_seal_pkcs11.hmac_mechanism is defined and vault_configuration_seal_pkcs11.hmac_mechanism != "" %}
+  hmac_mechanism = "{{ vault_configuration_seal_pkcs11.hmac_mechanism }}"
+{% endif %}
+{% if vault_configuration_seal_pkcs11.generate_key is defined and vault_configuration_seal_pkcs11.generate_key != "" %}
+  generate_key = {{ vault_configuration_seal_pkcs11.generate_key }}
+{% endif %}
+{% if vault_configuration_seal_pkcs11.force_rw_session is defined and vault_configuration_seal_pkcs11.force_rw_session != "" %}
+  force_rw_session = {{ vault_configuration_seal_pkcs11.force_rw_session }}
+{% endif %}
+{% if vault_configuration_seal_pkcs11.disabled is defined and vault_configuration_seal_pkcs11.disabled != "" %}
+  disabled = {{ vault_configuration_seal_pkcs11.disabled | ternary("true", "false") }}
+{% endif %}
+}
+{% endif %}

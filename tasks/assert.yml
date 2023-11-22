@@ -1002,3 +1002,168 @@
   when:
     - vault_configuration_seal_azurekeyvault is defined
     - vault_configuration_seal_azurekeyvault.disabled is defined
+
+- name: assert | Test vault_configuration_seal_pkcs11
+  ansible.builtin.assert:
+    that:
+      - vault_configuration_seal_pkcs11 is mapping
+    quiet: yes
+  when:
+    - vault_configuration_seal_pkcs11 is defined
+
+- name: assert | Test vault_configuration_seal_pkcs11.lib
+  ansible.builtin.assert:
+    that:
+      - vault_configuration_seal_pkcs11.lib is defined
+      - vault_configuration_seal_pkcs11.lib is string
+      - vault_configuration_seal_pkcs11.lib is not none
+    quiet: yes
+  when:
+    - vault_configuration_seal_pkcs11 is defined
+
+- name: assert | Test vault_configuration_seal_pkcs11.slot
+  ansible.builtin.assert:
+    that:
+      - vault_configuration_seal_pkcs11.slot is string
+      - vault_configuration_seal_pkcs11.slot is not none
+    quiet: yes
+  when:
+    - vault_configuration_seal_pkcs11 is defined
+    - vault_configuration_seal_pkcs11.slot is defined
+
+- name: assert | Test vault_configuration_seal_pkcs11.token_label
+  ansible.builtin.assert:
+    that:
+      - vault_configuration_seal_pkcs11.token_label is string
+      - vault_configuration_seal_pkcs11.token_label is not none
+    quiet: yes
+  when:
+    - vault_configuration_seal_pkcs11 is defined
+    - vault_configuration_seal_pkcs11.token_label is defined
+
+- name: assert | Test vault_configuration_seal_pkcs11.slot or token_label
+  ansible.builtin.assert:
+    that:
+      - vault_configuration_seal_pkcs11.slot is defined or vault_configuration_seal_pkcs11.token_label is defined
+    quiet: yes
+  when:
+    - vault_configuration_seal_pkcs11 is defined 
+
+- name: assert | Test vault_configuration_seal_pkcs11.pin
+  ansible.builtin.assert:
+    that:
+      - vault_configuration_seal_pkcs11.pin is defined
+      - vault_configuration_seal_pkcs11.pin is string
+      - vault_configuration_seal_pkcs11.pin is not none
+    quiet: yes
+  when:
+    - vault_configuration_seal_pkcs11 is defined
+
+- name: assert | Test vault_configuration_seal_pkcs11.key_label
+  ansible.builtin.assert:
+    that:
+      - vault_configuration_seal_pkcs11.key_label is defined
+      - vault_configuration_seal_pkcs11.key_label is string
+      - vault_configuration_seal_pkcs11.key_label is not none
+    quiet: yes
+  when:
+    - vault_configuration_seal_pkcs11 is defined
+
+- name: assert | Test vault_configuration_seal_pkcs11.default_key_label
+  ansible.builtin.assert:
+    that:
+      - vault_configuration_seal_pkcs11.default_key_label is string
+      - vault_configuration_seal_pkcs11.default_key_label is not none
+    quiet: yes
+  when:
+    - vault_configuration_seal_pkcs11 is defined
+    - vault_configuration_seal_pkcs11.default_key_label is defined
+
+- name: assert | Test vault_configuration_seal_pkcs11.key_id
+  ansible.builtin.assert:
+    that:
+      - vault_configuration_seal_pkcs11.key_id is string
+      - vault_configuration_seal_pkcs11.key_id is not none
+    quiet: yes
+  when:
+    - vault_configuration_seal_pkcs11 is defined
+    - vault_configuration_seal_pkcs11.key_id is defined
+
+- name: assert | Test vault_configuration_seal_pkcs11.hmac_key_label
+  ansible.builtin.assert:
+    that:
+      - vault_configuration_seal_pkcs11.hmac_key_label is defined
+      - vault_configuration_seal_pkcs11.hmac_key_label is string
+      - vault_configuration_seal_pkcs11.hmac_key_label is not none
+    quiet: yes
+  when:
+    - vault_configuration_seal_pkcs11 is defined
+
+- name: assert | Test vault_configuration_seal_pkcs11.default_hmac_key_label
+  ansible.builtin.assert:
+    that:
+      - vault_configuration_seal_pkcs11.default_hmac_key_label is string
+      - vault_configuration_seal_pkcs11.default_hmac_key_label is not none
+    quiet: yes
+  when:
+    - vault_configuration_seal_pkcs11 is defined
+    - vault_configuration_seal_pkcs11.default_hmac_key_label is defined
+
+- name: assert | Test vault_configuration_seal_pkcs11.hmac_key_id
+  ansible.builtin.assert:
+    that:
+      - vault_configuration_seal_pkcs11.hmac_key_id is string
+      - vault_configuration_seal_pkcs11.hmac_key_id is not none
+    quiet: yes
+  when:
+    - vault_configuration_seal_pkcs11 is defined
+    - vault_configuration_seal_pkcs11.hmac_key_id is defined
+
+- name: assert | Test vault_configuration_seal_pkcs11.mechanism
+  ansible.builtin.assert:
+    that:
+      - vault_configuration_seal_pkcs11.mechanism is string
+      - vault_configuration_seal_pkcs11.mechanism is not none
+      - vault_configuration_seal_pkcs11.mechamism in [ "0x1085", "0x1082", "0x1087", "0x0009", "0x0001" ]
+    quiet: yes
+  when:
+    - vault_configuration_seal_pkcs11 is defined
+    - vault_configuration_seal_pkcs11.mechanism is defined
+
+- name: assert | Test vault_configuration_seal_pkcs11.hmac_mechanism
+  ansible.builtin.assert:
+    that:
+      - vault_configuration_seal_pkcs11.hmac_mechanism is string
+      - vault_configuration_seal_pkcs11.hmac_mechanism is not none
+      - vault_configuration_seal_pkcs11.hmac_mechanism == "0x0251"
+    quiet: yes
+  when:
+    - vault_configuration_seal_pkcs11 is defined
+    - vault_configuration_seal_pkcs11.hmac_mechanism is defined
+
+- name: assert | Test vault_configuration_seal_pkcs11.generate_key
+  ansible.builtin.assert:
+    that:
+      - vault_configuration_seal_pkcs11.generate_key is boolean
+    quiet: yes
+  when:
+    - vault_configuration_seal_pkcs11 is defined
+    - vault_configuration_seal_pkcs11.generate_key is defined
+
+- name: assert | Test vault_configuration_seal_pkcs11.force_rw_session
+  ansible.builtin.assert:
+    that:
+      - vault_configuration_seal_pkcs11.force_rw_session is boolean
+    quiet: yes
+  when:
+    - vault_configuration_seal_pkcs11 is defined
+    - vault_configuration_seal_pkcs11.force_rw_session is defined
+
+- name: assert | Test vault_configuration_seal_pkcs11.disabled
+  ansible.builtin.assert:
+    that:
+      - vault_configuration_seal_pkcs11.disabled is boolean
+    quiet: yes
+  when:
+    - vault_configuration_seal_pkcs11 is defined
+    - vault_configuration_seal_pkcs11.disabled is defined
