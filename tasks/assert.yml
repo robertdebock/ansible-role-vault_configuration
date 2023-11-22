@@ -1047,7 +1047,7 @@
       - vault_configuration_seal_pkcs11.slot is defined or vault_configuration_seal_pkcs11.token_label is defined
     quiet: yes
   when:
-    - vault_configuration_seal_pkcs11 is defined 
+    - vault_configuration_seal_pkcs11 is defined
 
 - name: assert | Test vault_configuration_seal_pkcs11.pin
   ansible.builtin.assert:
