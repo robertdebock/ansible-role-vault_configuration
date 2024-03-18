@@ -6,7 +6,7 @@
       - vault_configuration_owner is defined
       - vault_configuration_owner is string
       - vault_configuration_owner is not none
-    quiet: yes
+    quiet: true
 
 - name: assert | Test vault_configuration_group
   ansible.builtin.assert:
@@ -14,14 +14,14 @@
       - vault_configuration_group is defined
       - vault_configuration_group is string
       - vault_configuration_group is not none
-    quiet: yes
+    quiet: true
 
 - name: assert | Test vault_configuration_license
   ansible.builtin.assert:
     that:
       - vault_configuration_license is string
       - vault_configuration_license is not none
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_license is defined
 
@@ -29,7 +29,7 @@
   ansible.builtin.assert:
     that:
       - vault_configuration_environment is iterable
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_environment is defined
 
@@ -39,7 +39,7 @@
       - vault_configuration_tls_directory is defined
       - vault_configuration_tls_directory is string
       - vault_configuration_tls_directory is not none
-    quiet: yes
+    quiet: true
 
 - name: assert | Test vault_configuration_max_lease_ttl
   ansible.builtin.assert:
@@ -47,7 +47,7 @@
       - vault_configuration_max_lease_ttl is defined
       - vault_configuration_max_lease_ttl is string
       - vault_configuration_max_lease_ttl is not none
-    quiet: yes
+    quiet: true
 
 - name: assert | Test vault_configuration_default_lease_ttl
   ansible.builtin.assert:
@@ -55,7 +55,7 @@
       - vault_configuration_default_lease_ttl is defined
       - vault_configuration_default_lease_ttl is string
       - vault_configuration_default_lease_ttl is not none
-    quiet: yes
+    quiet: true
 
 - name: assert | Test vault_configuration_api_addr
   ansible.builtin.assert:
@@ -63,7 +63,7 @@
       - vault_configuration_api_addr is defined
       - vault_configuration_api_addr is string
       - vault_configuration_api_addr is not none
-    quiet: yes
+    quiet: true
 
 - name: assert | Test vault_configuration_cluster_addr
   ansible.builtin.assert:
@@ -71,7 +71,7 @@
       - vault_configuration_cluster_addr is defined
       - vault_configuration_cluster_addr is string
       - vault_configuration_cluster_addr is not none
-    quiet: yes
+    quiet: true
   when:
     - not vault_configuration_disable_clustering
 
@@ -80,21 +80,21 @@
     that:
       - vault_configuration_disable_cache is defined
       - vault_configuration_disable_cache is boolean
-    quiet: yes
+    quiet: true
 
 - name: assert | Test vault_configuration_disable_mlock
   ansible.builtin.assert:
     that:
       - vault_configuration_disable_mlock is defined
       - vault_configuration_disable_mlock is boolean
-    quiet: yes
+    quiet: true
 
 - name: assert | Test vault_configuration_disable_clustering
   ansible.builtin.assert:
     that:
       - vault_configuration_disable_clustering is defined
       - vault_configuration_disable_clustering is boolean
-    quiet: yes
+    quiet: true
 
 - name: assert | Test vault_configuration_plugin_directory
   ansible.builtin.assert:
@@ -102,21 +102,21 @@
       - vault_configuration_plugin_directory is defined
       - vault_configuration_plugin_directory is string
       - vault_configuration_plugin_directory is not none
-    quiet: yes
+    quiet: true
 
 - name: assert | Test vault_configuration_ui
   ansible.builtin.assert:
     that:
       - vault_configuration_ui is defined
       - vault_configuration_ui is boolean
-    quiet: yes
+    quiet: true
 
 - name: assert | Test vault_configuration_log_level
   ansible.builtin.assert:
     that:
       - vault_configuration_log_level is string
       - vault_configuration_log_level in [ "trace", "debug", "error", "warn", "info" ]
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_log_level is defined
     - vault_configuration_log_level | length > 0
@@ -126,7 +126,7 @@
     that:
       - vault_configuration_listeners is defined
       - vault_configuration_listeners is iterable
-    quiet: yes
+    quiet: true
 
 - name: assert | Test vault_configuration_listeners.type
   ansible.builtin.assert:
@@ -134,7 +134,7 @@
       - item.type is defined
       - item.type is string
       - item.type in [ "tcp", "unix" ]
-    quiet: yes
+    quiet: true
   loop: "{{ vault_configuration_listeners }}"
   loop_control:
     label: "{{ item.address }}"
@@ -145,7 +145,7 @@
       - item.address is defined
       - item.address is string
       - item.address is not none
-    quiet: yes
+    quiet: true
   loop: "{{ vault_configuration_listeners }}"
   loop_control:
     label: "{{ item.address }}"
@@ -156,7 +156,7 @@
       - item.cluster_address is defined
       - item.cluster_address is string
       - item.cluster_address is not none
-    quiet: yes
+    quiet: true
   loop: "{{ vault_configuration_listeners }}"
   loop_control:
     label: "{{ item.address }}"
@@ -168,7 +168,7 @@
   ansible.builtin.assert:
     that:
       - item.http_idle_timeout is string
-    quiet: yes
+    quiet: true
   loop: "{{ vault_configuration_listeners }}"
   loop_control:
     label: "{{ item.address }}"
@@ -180,7 +180,7 @@
   ansible.builtin.assert:
     that:
       - item.http_read_header_timeout is string
-    quiet: yes
+    quiet: true
   loop: "{{ vault_configuration_listeners }}"
   loop_control:
     label: "{{ item.address }}"
@@ -192,7 +192,7 @@
   ansible.builtin.assert:
     that:
       - item.http_read_timeout is defined
-    quiet: yes
+    quiet: true
   loop: "{{ vault_configuration_listeners }}"
   loop_control:
     label: "{{ item.address }}"
@@ -206,7 +206,7 @@
       - item.http_write_timeout is not none
       - item.http_write_timeout is string or
         item.http_write_timeout is number
-    quiet: yes
+    quiet: true
   loop: "{{ vault_configuration_listeners }}"
   loop_control:
     label: "{{ item.address }}"
@@ -218,7 +218,7 @@
   ansible.builtin.assert:
     that:
       - item.max_request_size is number
-    quiet: yes
+    quiet: true
   loop: "{{ vault_configuration_listeners }}"
   loop_control:
     label: "{{ item.address }}"
@@ -231,7 +231,7 @@
     that:
       - item.max_request_duration is string
       - item.max_request_duration is not none
-    quiet: yes
+    quiet: true
   loop: "{{ vault_configuration_listeners }}"
   loop_control:
     label: "{{ item.address }}"
@@ -244,7 +244,7 @@
     that:
       - item.proxy_protocol_behavior is string
       - item.proxy_protocol_behavior in [ "use_always", "allow_authorized", "deny_unauthorized" ]
-    quiet: yes
+    quiet: true
   loop: "{{ vault_configuration_listeners }}"
   loop_control:
     label: "{{ item.address }}"
@@ -258,7 +258,7 @@
     that:
       - item.proxy_protocol_authorized_addrs is string
       - item.proxy_protocol_authorized_addrs is not none
-    quiet: yes
+    quiet: true
   loop: "{{ vault_configuration_listeners }}"
   loop_control:
     label: "{{ item.address }}"
@@ -270,7 +270,7 @@
   ansible.builtin.assert:
     that:
       - item.tls_disable is boolean
-    quiet: yes
+    quiet: true
   loop: "{{ vault_configuration_listeners }}"
   loop_control:
     label: "{{ item.address }}"
@@ -283,7 +283,7 @@
     that:
       - item.tls_cert_file is string
       - item.tls_cert_file is not none
-    quiet: yes
+    quiet: true
   loop: "{{ vault_configuration_listeners }}"
   loop_control:
     label: "{{ item.address }}"
@@ -297,7 +297,7 @@
       - item.tls_cert is string
       - item.tls_cert is not none
       - item.tls_cert_file is not defined
-    quiet: yes
+    quiet: true
   loop: "{{ vault_configuration_listeners }}"
   loop_control:
     label: "{{ item.address }}"
@@ -310,7 +310,7 @@
     that:
       - item.tls_key_file is string
       - item.tls_key_file is not none
-    quiet: yes
+    quiet: true
   loop: "{{ vault_configuration_listeners }}"
   loop_control:
     label: "{{ item.address }}"
@@ -324,7 +324,7 @@
       - item.tls_key is string
       - item.tls_key is not none
       - item.tls_key_file is not defined
-    quiet: yes
+    quiet: true
   loop: "{{ vault_configuration_listeners }}"
   loop_control:
     label: "{{ item.address }}"
@@ -337,7 +337,7 @@
     that:
       - item.tls_min_version is string
       - item.tls_min_version in [ "tls10", "tls11", "tls12", "tls13" ]
-    quiet: yes
+    quiet: true
   loop: "{{ vault_configuration_listeners }}"
   loop_control:
     label: "{{ item.address }}"
@@ -350,7 +350,7 @@
     that:
       - item.tls_cipher_suites is string
       - item.tls_cipher_suites is not none
-    quiet: yes
+    quiet: true
   loop: "{{ vault_configuration_listeners }}"
   loop_control:
     label: "{{ item.address }}"
@@ -362,7 +362,7 @@
   ansible.builtin.assert:
     that:
       - item.tls_require_and_verify_client_cert is boolean
-    quiet: yes
+    quiet: true
   loop: "{{ vault_configuration_listeners }}"
   loop_control:
     label: "{{ item.address }}"
@@ -375,7 +375,7 @@
     that:
       - item.tls_client_ca_file is string
       - item.tls_client_ca_file is not none
-    quiet: yes
+    quiet: true
   loop: "{{ vault_configuration_listeners }}"
   loop_control:
     label: "{{ item.address }}"
@@ -387,7 +387,7 @@
   ansible.builtin.assert:
     that:
       - item.tls_disable_client_certs is boolean
-    quiet: yes
+    quiet: true
   loop: "{{ vault_configuration_listeners }}"
   loop_control:
     label: "{{ item.address }}"
@@ -400,7 +400,7 @@
     that:
       - item.x_forwarded_for_authorized_addrs is string
       - item.x_forwarded_for_authorized_addrs is not none
-    quiet: yes
+    quiet: true
   loop: "{{ vault_configuration_listeners }}"
   loop_control:
     label: "{{ item.address }}"
@@ -413,7 +413,7 @@
     that:
       - item.x_forwarded_for_hop_skips is number
       - item.x_forwarded_for_hop_skips >= 0
-    quiet: yes
+    quiet: true
   loop: "{{ vault_configuration_listeners }}"
   loop_control:
     label: "{{ item.address }}"
@@ -425,7 +425,7 @@
   ansible.builtin.assert:
     that:
       - item.x_forwarded_for_reject_not_authorized is boolean
-    quiet: yes
+    quiet: true
   loop: "{{ vault_configuration_listeners }}"
   loop_control:
     label: "{{ item.address }}"
@@ -437,7 +437,7 @@
   ansible.builtin.assert:
     that:
       - item.x_forwarded_for_reject_not_present is boolean
-    quiet: yes
+    quiet: true
   loop: "{{ vault_configuration_listeners }}"
   loop_control:
     label: "{{ item.address }}"
@@ -449,7 +449,7 @@
   ansible.builtin.assert:
     that:
       - item.telemetry is mapping
-    quiet: yes
+    quiet: true
   loop: "{{ vault_configuration_listeners }}"
   loop_control:
     label: "{{ item.address }}"
@@ -461,7 +461,7 @@
   ansible.builtin.assert:
     that:
       - item.telemetry.unauthenticated_metrics_access is boolean
-    quiet: yes
+    quiet: true
   loop: "{{ vault_configuration_listeners }}"
   loop_control:
     label: "{{ item.address }}"
@@ -474,7 +474,7 @@
   ansible.builtin.assert:
     that:
       - item.profiling is mapping
-    quiet: yes
+    quiet: true
   loop: "{{ vault_configuration_listeners }}"
   loop_control:
     label: "{{ item.address }}"
@@ -486,7 +486,7 @@
   ansible.builtin.assert:
     that:
       - item.profiling.unauthenticated_pprof_access is boolean
-    quiet: yes
+    quiet: true
   loop: "{{ vault_configuration_listeners }}"
   loop_control:
     label: "{{ item.address }}"
@@ -499,7 +499,7 @@
   ansible.builtin.assert:
     that:
       - item.profiling.unauthenticated_in_flight_request_access is boolean
-    quiet: yes
+    quiet: true
   loop: "{{ vault_configuration_listeners }}"
   loop_control:
     label: "{{ item.address }}"
@@ -512,7 +512,7 @@
   ansible.builtin.assert:
     that:
       - item.socket_mode is string
-    quiet: yes
+    quiet: true
   loop: "{{ vault_configuration_listeners }}"
   loop_control:
     label: "{{ item.address }}"
@@ -524,7 +524,7 @@
   ansible.builtin.assert:
     that:
       - item.socket_user is string
-    quiet: yes
+    quiet: true
   loop: "{{ vault_configuration_listeners }}"
   loop_control:
     label: "{{ item.address }}"
@@ -536,7 +536,7 @@
   ansible.builtin.assert:
     that:
       - item.socket_group is string
-    quiet: yes
+    quiet: true
   loop: "{{ vault_configuration_listeners }}"
   loop_control:
     label: "{{ item.address }}"
@@ -548,7 +548,7 @@
   ansible.builtin.assert:
     that:
       - vault_configuration_storage_raft is mapping
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_storage_raft is defined
 
@@ -557,7 +557,7 @@
     that:
       - vault_configuration_storage_raft.path is string
       - vault_configuration_storage_raft.path is not none
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_storage_raft is defined
 
@@ -566,7 +566,7 @@
     that:
       - vault_configuration_storage_raft.node_id is string
       - vault_configuration_storage_raft.node_id is not none
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_storage_raft is defined
 
@@ -575,7 +575,7 @@
     that:
       - vault_configuration_storage_raft.performance_multiplier is number
       - vault_configuration_storage_raft.performance_multiplier >= 0
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_storage_raft.performance_multiplier is defined
     - vault_configuration_storage_raft is defined
@@ -585,7 +585,7 @@
     that:
       - vault_configuration_storage_raft.trailing_logs is number
       - vault_configuration_storage_raft.trailing_logs >= 0
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.trailing_logs is defined
@@ -595,7 +595,7 @@
     that:
       - vault_configuration_storage_raft.snapshot_threshold is number
       - vault_configuration_storage_raft.snapshot_threshold >= 0
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.snapshot_threshold is defined
@@ -604,7 +604,7 @@
   ansible.builtin.assert:
     that:
       - vault_configuration_storage_raft.retry_join is iterable
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.retry_join is defined
@@ -614,7 +614,7 @@
     that:
       - item.leader_api_addr is string
       - item.leader_api_addr is not none
-    quiet: yes
+    quiet: true
   loop: "{{ vault_configuration_storage_raft.retry_join }}"
   loop_control:
     label: "{{ item.leader_api_addr }}"
@@ -628,7 +628,7 @@
     that:
       - item.auto_join is string
       - item.auto_join is not none
-    quiet: yes
+    quiet: true
   loop: "{{ vault_configuration_storage_raft.retry_join }}"
   loop_control:
     label: "{{ item.auto_join | default('Not set') }}"
@@ -642,7 +642,7 @@
     that:
       - item.auto_join_scheme is string
       - item.auto_join_scheme in [ "http", "https" ]
-    quiet: yes
+    quiet: true
   loop: "{{ vault_configuration_storage_raft.retry_join }}"
   loop_control:
     label: "{{ item.auto_join_scheme | default('Not set') }}"
@@ -657,7 +657,7 @@
       - item.auto_join_port is number
       - item.auto_join_port >= 0
       - item.auto_join_port <= 64536
-    quiet: yes
+    quiet: true
   loop: "{{ vault_configuration_storage_raft.retry_join }}"
   loop_control:
     label: "{{ item.auto_join_port | default('Not set') }}"
@@ -671,7 +671,7 @@
     that:
       - item.leader_tls_servername is string
       - item.leader_tls_servername is not none
-    quiet: yes
+    quiet: true
   loop: "{{ vault_configuration_storage_raft.retry_join }}"
   loop_control:
     label: "{{ item.leader_tls_servername | default('Not set') }}"
@@ -685,7 +685,7 @@
     that:
       - item.leader_ca_cert_file is string
       - item.leader_ca_cert_file is not none
-    quiet: yes
+    quiet: true
   loop: "{{ vault_configuration_storage_raft.retry_join }}"
   loop_control:
     label: "{{ item.leader_ca_cert_file | default('Not set') }}"
@@ -700,7 +700,7 @@
       - item.leader_ca_cert is string
       - item.leader_ca_cert is not none
       - item.leder_ca_cert_file is not defined
-    quiet: yes
+    quiet: true
   loop: "{{ vault_configuration_storage_raft.retry_join }}"
   loop_control:
     label: "{{ item.leader_ca_cert_file | default('Not set') }}"
@@ -715,7 +715,7 @@
     that:
       - item.leader_client_cert_file is string
       - item.leader_client_cert_file is not none
-    quiet: yes
+    quiet: true
   loop: "{{ vault_configuration_storage_raft.retry_join }}"
   loop_control:
     label: "{{ item.leader_client_cert_file | default('Not set') }}"
@@ -729,7 +729,7 @@
     that:
       - item.leader_client_key_file is string
       - item.leader_client_key_file is not none
-    quiet: yes
+    quiet: true
   loop: "{{ vault_configuration_storage_raft.retry_join }}"
   loop_control:
     label: "{{ item.leader_client_key_file | default('Not set') }}"
@@ -743,7 +743,7 @@
     that:
       - item.leader_ca_cert is string
       - item.leader_ca_cert is not none
-    quiet: yes
+    quiet: true
   loop: "{{ vault_configuration_storage_raft.retry_join }}"
   loop_control:
     label: "{{ item.leader_ca_cert | default('Not set') }}"
@@ -757,7 +757,7 @@
     that:
       - item.leader_client_cert is string
       - item.leader_client_cert is not none
-    quiet: yes
+    quiet: true
   loop: "{{ vault_configuration_storage_raft.leader_client_cert }}"
   loop_control:
     label: "{{ item.leader_client_cert | default('Not set') }}"
@@ -771,7 +771,7 @@
     that:
       - item.leader_client_key is string
       - item.leader_client_key is not none
-    quiet: yes
+    quiet: true
   loop: "{{ vault_configuration_storage_raft.leader_client_cert }}"
   loop_control:
     label: "{{ item.leader_client_key | default('Not set') }}"
@@ -784,7 +784,7 @@
   ansible.builtin.assert:
     that:
       - vault_configuration_storage_raft.retry_join_as_non_voter is boolean
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.retry_join_as_non_voter is defined
@@ -794,7 +794,7 @@
     that:
       - vault_configuration_storage_raft.max_entry_size is number
       - vault_configuration_storage_raft.max_entry_size >= 0
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.max_entry_size is defined
@@ -804,7 +804,7 @@
     that:
       - vault_configuration_storage_raft.autopilot_reconcile_interval is string
       - vault_configuration_storage_raft.autopilot_reconcile_interval is not none
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.autopilot_reconcile_interval is defined
@@ -814,7 +814,7 @@
     that:
       - vault_configuration_storage_raft.autopilot_update_interval is string
       - vault_configuration_storage_raft.autopilot_update_interval is not none
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.autopilot_update_interval is defined
@@ -824,7 +824,7 @@
     that:
       - vault_configuration_storage_raft.autopilot_upgrade_version is string
       - vault_configuration_storage_raft.autopilot_upgrade_version is not none
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.autopilot_upgrade_version is defined
@@ -834,7 +834,7 @@
     that:
       - vault_configuration_storage_raft.autopilot_redundancy_zone is string
       - vault_configuration_storage_raft.autopilot_redundancy_zone is not none
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_storage_raft is defined
     - vault_configuration_storage_raft.autopilot_redundancy_zone is defined
@@ -843,7 +843,7 @@
   ansible.builtin.assert:
     that:
       - vault_configuration_seal_awskms is mapping
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_seal_awskms is defined
 
@@ -852,7 +852,7 @@
     that:
       - vault_configuration_seal_awskms.region is string
       - vault_configuration_seal_awskms.region is not none
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_seal_awskms is defined
     - vault_configuration_seal_awskms.region is defined
@@ -862,7 +862,7 @@
     that:
       - vault_configuration_seal_awskms.access_key is string
       - vault_configuration_seal_awskms.access_key is not none
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_seal_awskms is defined
     - vault_configuration_seal_awskms.access_key is defined
@@ -872,7 +872,7 @@
     that:
       - vault_configuration_seal_awskms.session_token is string
       - vault_configuration_seal_awskms.session_token is not none
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_seal_awskms is defined
     - vault_configuration_seal_awskms.regsession_tokenion is defined
@@ -882,7 +882,7 @@
     that:
       - vault_configuration_seal_awskms.secret_key is string
       - vault_configuration_seal_awskms.secret_key is not none
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_seal_awskms is defined
     - vault_configuration_seal_awskms.secret_key is defined
@@ -892,7 +892,7 @@
     that:
       - vault_configuration_seal_awskms.kms_key_id is string
       - vault_configuration_seal_awskms.kms_key_id is not none
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_seal_awskms is defined
     - vault_configuration_seal_awskms.kms_key_id is defined
@@ -901,7 +901,7 @@
   ansible.builtin.assert:
     that:
       - vault_configuration_seal_awskms.disabled is boolean
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_seal_awskms is defined
     - vault_configuration_seal_awskms.disabled is defined
@@ -911,7 +911,7 @@
     that:
       - vault_configuration_seal_awskms.endpoint is string
       - vault_configuration_seal_awskms.endpoint is not none
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_seal_awskms is defined
     - vault_configuration_seal_awskms.endpoint is defined
@@ -920,7 +920,7 @@
   ansible.builtin.assert:
     that:
       - vault_configuration_seal_azurekeyvault is mapping
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_seal_azurekeyvault is defined
 
@@ -929,7 +929,7 @@
     that:
       - vault_configuration_seal_azurekeyvault.tenant_id is string
       - vault_configuration_seal_azurekeyvault.tenant_id is not none
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_seal_azurekeyvault is defined
     - vault_configuration_seal_azurekeyvault.tenant_id is defined
@@ -939,7 +939,7 @@
     that:
       - vault_configuration_seal_azurekeyvault.client_id is string
       - vault_configuration_seal_azurekeyvault.client_id is not none
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_seal_azurekeyvault is defined
     - vault_configuration_seal_azurekeyvault.client_id is defined
@@ -949,7 +949,7 @@
     that:
       - vault_configuration_seal_azurekeyvault.client_secret is string
       - vault_configuration_seal_azurekeyvault.client_secret is not none
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_seal_azurekeyvault is defined
     - vault_configuration_seal_azurekeyvault.client_secret is defined
@@ -959,7 +959,7 @@
     that:
       - vault_configuration_seal_azurekeyvault.environment is string
       - vault_configuration_seal_azurekeyvault.environment is not none
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_seal_azurekeyvault is defined
     - vault_configuration_seal_azurekeyvault.environment is defined
@@ -969,7 +969,7 @@
     that:
       - vault_configuration_seal_azurekeyvault.vault_name is string
       - vault_configuration_seal_azurekeyvault.vault_name is not none
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_seal_azurekeyvault is defined
     - vault_configuration_seal_azurekeyvault.vault_name is defined
@@ -979,7 +979,7 @@
     that:
       - vault_configuration_seal_azurekeyvault.key_name is string
       - vault_configuration_seal_azurekeyvault.key_name is not none
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_seal_azurekeyvault is defined
     - vault_configuration_seal_azurekeyvault.key_name is defined
@@ -989,7 +989,7 @@
     that:
       - vault_configuration_seal_azurekeyvault.resource is string
       - vault_configuration_seal_azurekeyvault.resource is not none
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_seal_azurekeyvault is defined
     - vault_configuration_seal_azurekeyvault.resource is defined
@@ -998,7 +998,7 @@
   ansible.builtin.assert:
     that:
       - vault_configuration_seal_azurekeyvault.disabled is boolean
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_seal_azurekeyvault is defined
     - vault_configuration_seal_azurekeyvault.disabled is defined
@@ -1007,7 +1007,7 @@
   ansible.builtin.assert:
     that:
       - vault_configuration_seal_pkcs11 is mapping
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_seal_pkcs11 is defined
 
@@ -1017,7 +1017,7 @@
       - vault_configuration_seal_pkcs11.lib is defined
       - vault_configuration_seal_pkcs11.lib is string
       - vault_configuration_seal_pkcs11.lib is not none
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_seal_pkcs11 is defined
 
@@ -1026,7 +1026,7 @@
     that:
       - vault_configuration_seal_pkcs11.slot is string
       - vault_configuration_seal_pkcs11.slot is not none
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_seal_pkcs11 is defined
     - vault_configuration_seal_pkcs11.slot is defined
@@ -1036,7 +1036,7 @@
     that:
       - vault_configuration_seal_pkcs11.token_label is string
       - vault_configuration_seal_pkcs11.token_label is not none
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_seal_pkcs11 is defined
     - vault_configuration_seal_pkcs11.token_label is defined
@@ -1045,7 +1045,7 @@
   ansible.builtin.assert:
     that:
       - vault_configuration_seal_pkcs11.slot is defined or vault_configuration_seal_pkcs11.token_label is defined
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_seal_pkcs11 is defined
 
@@ -1055,7 +1055,7 @@
       - vault_configuration_seal_pkcs11.pin is defined
       - vault_configuration_seal_pkcs11.pin is string
       - vault_configuration_seal_pkcs11.pin is not none
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_seal_pkcs11 is defined
 
@@ -1065,7 +1065,7 @@
       - vault_configuration_seal_pkcs11.key_label is defined
       - vault_configuration_seal_pkcs11.key_label is string
       - vault_configuration_seal_pkcs11.key_label is not none
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_seal_pkcs11 is defined
 
@@ -1074,7 +1074,7 @@
     that:
       - vault_configuration_seal_pkcs11.default_key_label is string
       - vault_configuration_seal_pkcs11.default_key_label is not none
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_seal_pkcs11 is defined
     - vault_configuration_seal_pkcs11.default_key_label is defined
@@ -1084,7 +1084,7 @@
     that:
       - vault_configuration_seal_pkcs11.key_id is string
       - vault_configuration_seal_pkcs11.key_id is not none
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_seal_pkcs11 is defined
     - vault_configuration_seal_pkcs11.key_id is defined
@@ -1095,7 +1095,7 @@
       - vault_configuration_seal_pkcs11.hmac_key_label is defined
       - vault_configuration_seal_pkcs11.hmac_key_label is string
       - vault_configuration_seal_pkcs11.hmac_key_label is not none
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_seal_pkcs11 is defined
 
@@ -1104,7 +1104,7 @@
     that:
       - vault_configuration_seal_pkcs11.default_hmac_key_label is string
       - vault_configuration_seal_pkcs11.default_hmac_key_label is not none
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_seal_pkcs11 is defined
     - vault_configuration_seal_pkcs11.default_hmac_key_label is defined
@@ -1114,7 +1114,7 @@
     that:
       - vault_configuration_seal_pkcs11.hmac_key_id is string
       - vault_configuration_seal_pkcs11.hmac_key_id is not none
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_seal_pkcs11 is defined
     - vault_configuration_seal_pkcs11.hmac_key_id is defined
@@ -1125,7 +1125,7 @@
       - vault_configuration_seal_pkcs11.mechanism is string
       - vault_configuration_seal_pkcs11.mechanism is not none
       - vault_configuration_seal_pkcs11.mechamism in [ "0x1085", "0x1082", "0x1087", "0x0009", "0x0001" ]
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_seal_pkcs11 is defined
     - vault_configuration_seal_pkcs11.mechanism is defined
@@ -1136,7 +1136,7 @@
       - vault_configuration_seal_pkcs11.hmac_mechanism is string
       - vault_configuration_seal_pkcs11.hmac_mechanism is not none
       - vault_configuration_seal_pkcs11.hmac_mechanism == "0x0251"
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_seal_pkcs11 is defined
     - vault_configuration_seal_pkcs11.hmac_mechanism is defined
@@ -1145,7 +1145,7 @@
   ansible.builtin.assert:
     that:
       - vault_configuration_seal_pkcs11.generate_key is boolean
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_seal_pkcs11 is defined
     - vault_configuration_seal_pkcs11.generate_key is defined
@@ -1154,7 +1154,7 @@
   ansible.builtin.assert:
     that:
       - vault_configuration_seal_pkcs11.force_rw_session is boolean
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_seal_pkcs11 is defined
     - vault_configuration_seal_pkcs11.force_rw_session is defined
@@ -1163,7 +1163,7 @@
   ansible.builtin.assert:
     that:
       - vault_configuration_seal_pkcs11.disabled is boolean
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_seal_pkcs11 is defined
     - vault_configuration_seal_pkcs11.disabled is defined
@@ -1172,7 +1172,7 @@
   ansible.builtin.assert:
     that:
       - vault_configuration_seal_ocikms is mapping
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_seal_ocikms is defined
 
@@ -1181,7 +1181,7 @@
     that:
       - vault_configuration_seal_ocikms.key_id is string
       - vault_configuration_seal_ocikms.key_id is not none
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_seal_ocikms is defined
     - vault_configuration_seal_ocikms.key_id is defined
@@ -1191,7 +1191,7 @@
     that:
       - vault_configuration_seal_ocikms.crypto_endpoint is string
       - vault_configuration_seal_ocikms.crypto_endpoint is not none
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_seal_ocikms is defined
     - vault_configuration_seal_ocikms.crypto_endpoint is defined
@@ -1201,7 +1201,7 @@
     that:
       - vault_configuration_seal_ocikms.management_endpoint is string
       - vault_configuration_seal_ocikms.management_endpoint is not none
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_seal_ocikms is defined
     - vault_configuration_seal_ocikms.management_endpoint is defined
@@ -1210,7 +1210,7 @@
   ansible.builtin.assert:
     that:
       - vault_configuration_seal_ocikms.auth_type_api_key is boolean
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_seal_ocikms is defined
     - vault_configuration_seal_ocikms.auth_type_api_key is defined
@@ -1219,7 +1219,7 @@
   ansible.builtin.assert:
     that:
       - vault_configuration_seal_ocikms.disabled is boolean
-    quiet: yes
+    quiet: true
   when:
     - vault_configuration_seal_ocikms is defined
     - vault_configuration_seal_ocikms.disabled is defined
