@@ -25,14 +25,6 @@
   when:
     - vault_configuration_license is defined
 
-- name: assert | Test vault_configuration_environment
-  ansible.builtin.assert:
-    that:
-      - vault_configuration_environment is iterable
-    quiet: true
-  when:
-    - vault_configuration_environment is defined
-
 - name: assert | Test vault_configuration_tls_directory
   ansible.builtin.assert:
     that:

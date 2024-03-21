@@ -84,16 +84,6 @@
   when:
     - vault_configuration_license is defined
 
-- name: Place Vault environment file
-  ansible.builtin.template:
-    src: vault.env.j2
-    dest: /etc/vault.d/vault.env
-    mode: "0644"
-    owner: "{{ vault_configuration_owner }}"
-    group: "{{ vault_configuration_group }}"
-  notify:
-    - Restart Vault
-
 - name: Create socket directory
   ansible.builtin.file:
     path: "{{ item.address | dirname }}"
