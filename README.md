@@ -35,6 +35,7 @@ The machine needs to be prepared. In CI this is done using [`molecule/default/pr
     - role: robertdebock.core_dependencies
     - role: robertdebock.hashicorp
     - role: robertdebock.vault
+      vault_hardening_disable_swap: true
 ```
 
 Also see a [full explanation and example](https://robertdebock.nl/how-to-use-these-roles.html) on how to use these roles.
@@ -55,15 +56,6 @@ vault_configuration_group: vault
 # The role `robertdebock.vault` can install Vault enterprise by setting:
 # - `vault_type` to `"ent"` or `"hsm"`.
 # vault_configuration_license: "XYZABC"
-
-# Environment variables can be saved to /etc/vault.d.vault.env. These are loaded when starting Vault.
-# vault_configuration_environment:
-#   - name: http_proxy
-#     value: "http://proxy.example.com:3128"
-#   - name: HTTP_PROXY
-#     value: "http://proxy.example.com:3128"
-#   - name: no_proxy
-#     value: "direct.example.com,other.example.com"
 
 # Specify the location where TLS material should be placed. This is typically `/opt/vault/tls`.
 vault_configuration_tls_directory: "/opt/vault/tls"
