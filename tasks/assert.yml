@@ -60,11 +60,11 @@
 - name: assert | Test vault_configuration_cluster_addr
   ansible.builtin.assert:
     that:
+      - vault_configuration_cluster_addr is defined
       - vault_configuration_cluster_addr is string
       - vault_configuration_cluster_addr is not none
     quiet: true
   when:
-    - vault_configuration_cluster_addr is defined
     - not vault_configuration_disable_clustering
 
 - name: assert | Test vault_configuration_disable_cache
@@ -145,7 +145,6 @@
 - name: assert | Test vault_configuration_listeners.cluster_address
   ansible.builtin.assert:
     that:
-      - item.cluster_address is defined
       - item.cluster_address is string
       - item.cluster_address is not none
     quiet: true
@@ -153,6 +152,7 @@
   loop_control:
     label: "{{ item.address }}"
   when:
+    - item.cluster_address is defined
     - not vault_configuration_disable_clustering
     - item.type == "tcp"
 
