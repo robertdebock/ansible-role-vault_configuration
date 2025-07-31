@@ -60,11 +60,11 @@
 - name: assert | Test vault_configuration_cluster_addr
   ansible.builtin.assert:
     that:
-      - vault_configuration_cluster_addr is defined
       - vault_configuration_cluster_addr is string
       - vault_configuration_cluster_addr is not none
     quiet: true
   when:
+    - vault_configuration_cluster_addr is defined
     - not vault_configuration_disable_clustering
 
 - name: assert | Test vault_configuration_disable_cache
