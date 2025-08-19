@@ -6,3 +6,14 @@
 
   roles:
     - role: robertdebock.vault_configuration
+    # This would create a Vault cluster with a PostgreSQL storage backend.
+    # vault_configuration_storage_raft: null
+
+    # vault_configuration_storage_postgresql:
+    #   connection_url: "postgres://test:test@localhost:5432/vault"
+    #   table: "vault_kv_store"
+    #   max_idle_connections: 5
+    #   max_parallel: "128"
+    #   ha_enabled: "true"
+    #   ha_table: "vault_ha_locks"
+    #   auth_mode: "standard"

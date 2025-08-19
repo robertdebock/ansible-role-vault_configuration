@@ -19,6 +19,17 @@ This example is taken from [`molecule/default/converge.yml`](https://github.com/
 
   roles:
     - role: robertdebock.vault_configuration
+    # This would create a Vault cluster with a PostgreSQL storage backend.
+    # vault_configuration_storage_raft: null
+
+    # vault_configuration_storage_postgresql:
+    #   connection_url: "postgres://test:test@localhost:5432/vault"
+    #   table: "vault_kv_store"
+    #   max_idle_connections: 5
+    #   max_parallel: "128"
+    #   ha_enabled: "true"
+    #   ha_table: "vault_ha_locks"
+    #   auth_mode: "standard"
 ```
 
 The machine needs to be prepared. In CI this is done using [`molecule/default/prepare.yml`](https://github.com/robertdebock/ansible-role-vault_configuration/blob/master/molecule/default/prepare.yml):
@@ -248,6 +259,19 @@ vault_configuration_storage_raft:
 # The "inmem" (Memory) storage stanza has no parameters. Use it by setting it to 'yes'.
 # NOT IMPLEMENTED.
 # vault_configuration_storage_inmem: true
+
+# PostgreSQL storage backend configuration.
+# Values used below are taken from: https://developer.hashicorp.com/vault/docs/configuration/storage/postgresql
+# vault_configuration_storage_postgresql:
+#   connection_url: "postgres://user123:secret123!@localhost:5432/vault"
+#   table: "vault_kv_store"
+#   max_idle_connections: 0
+#   max_parallel: "128"
+#   ha_enabled: "false"
+#   ha_table: "vault_ha_locks"
+#   auth_mode: "standard"
+#   aws_db_region: ""
+#   azure_client_id: ""
 
 #
 # (UN)SEAL SETTINGS

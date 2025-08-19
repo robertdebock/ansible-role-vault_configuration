@@ -1,0 +1,40 @@
+---
+- name: Test PostgreSQL Storage Configuration
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  vars:
+    # Ensure Raft storage is not defined when testing PostgreSQL
+    vault_configuration_storage_raft: null
+
+    vault_configuration_storage_postgresql:
+      connection_url: "postgres://test:test@localhost:5432/vault"
+      table: "vault_kv_store"
+      max_idle_connections: 5
+      max_parallel: "128"
+      ha_enabled: "true"
+      ha_table: "vault_ha_locks"
+      auth_mode: "standard"
+
+    vault_configuration_listeners:
+      - type: "tcp"
+        address: "127.0.0.1:8200"
+        cluster_address: "127.0.0.1:8201"
+        tls_disable: true
+
+    vault_configuration_api_addr: "http://localhost:8200"
+    vault_configuration_cluster_addr: "http://localhost:8201"
+
+  tasks:
+    - name: Test template generation
+      ansible.builtin.template:
+        src: templates/vault.hcl.j2
+        dest: /tmp/test_vault.hcl
+        mode: "0640"
+      check_mode: true
+      diff: true
+
+    - name: Display generated configuration
+      ansible.builtin.debug:
+        msg: "PostgreSQL configuration test completed successfully"
