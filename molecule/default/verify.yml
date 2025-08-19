@@ -2,20 +2,25 @@
 - name: Verify
   hosts: all
   become: true
-  gather_facts: true
+  gather_facts: false
 
   tasks:
+    - name: Get Vault status
+      ansible.builtin.command:
+        cmd: vault status -format=json
+      environment:
+        VAULT_ADDR: "unix:///run/vault/vault.sock"
+      register: vault_init_check
+      failed_when: false
+      changed_when: false
+
     - name: Initialize Vault
       ansible.builtin.command:
         cmd: vault operator init
       environment:
         VAULT_SKIP_VERIFY: "True"
-
-    - name: Use socket to check status
-      ansible.builtin.command:
-        cmd: vault status
-      environment:
-        VAULT_ADDR: "unix:///run/vault/vault.sock"
-      register: vault_socket
-      failed_when:
-        - vault_socket.stdout is not search("Initialized        true")
+      changed_when: true
+      when:
+        - vault_init_check.stdout is defined
+        - vault_init_check.stdout != ""
+        - not (vault_init_check.stdout | from_json).initialized
