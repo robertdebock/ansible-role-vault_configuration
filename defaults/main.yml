@@ -291,17 +291,16 @@ vault_configuration_storage_raft:
 #   disabled: false
 
 # Another Vault (with the Transit secrets engine) can be used to unseal Vault.
-# NOT IMPLEMENTED.
 # vault_configuration_seal_transit:
-#   address:
-#   token:
-#   key_name:
-#   mount_path:
-#   namespace:
+#   address: ""
+#   token: ""
+#   key_name: ""
+#   mount_path: ""
+#   namespace: ""
 #   disable_renewal:
-#   tls_ca_cert:
-#   tls_client_cert:
-#   tls_client_key:
-#   tls_server_name:
+#   tls_ca_cert: ""
+#   tls_client_cert: ""
+#   tls_client_key: ""
+#   tls_server_name: ""
 #   tls_skip_verify:
 #   disabled: false

@@ -238,7 +238,7 @@ storage "postgresql" {
 }
 {% endif %}
 
-{% if vault_configuration_seal_awskms is defined or vault_configuration_seal_azurekeyvault is defined %}
+{% if vault_configuration_seal_awskms is defined or vault_configuration_seal_azurekeyvault is defined or vault_configuration_seal_transit is defined %}
 #
 # (UN)SEAL SETTINGS
 #
@@ -264,6 +264,47 @@ seal "awskms" {
 }
 {% endif %}
 
+{% if vault_configuration_seal_transit is defined %}
+seal "transit" {
+{% if vault_configuration_seal_transit.address is defined and vault_configuration_seal_transit.address != "" %}
+  address = "{{ vault_configuration_seal_transit.address }}"
+{% endif %}
+{% if vault_configuration_seal_transit.token is defined and vault_configuration_seal_transit.token != "" %}
+  token = "{{ vault_configuration_seal_transit.token }}"
+{% endif %}
+{% if vault_configuration_seal_transit.key_name is defined and vault_configuration_seal_transit.key_name != "" %}
+  key_name = "{{ vault_configuration_seal_transit.key_name }}"
+{% endif %}
+{% if vault_configuration_seal_transit.mount_path is defined and vault_configuration_seal_transit.mount_path != "" %}
+  mount_path = "{{ vault_configuration_seal_transit.mount_path }}"
+{% endif %}
+{% if vault_configuration_seal_transit.namespace is defined and vault_configuration_seal_transit.namespace != "" %}
+  namespace = "{{ vault_configuration_seal_transit.namespace }}"
+{% endif %}
+{% if vault_configuration_seal_transit.disable_renewal is defined and vault_configuration_seal_transit.disable_renewal %}
+  disable_renewal = true
+{% endif %}
+{% if vault_configuration_seal_transit.tls_ca_cert is defined and vault_configuration_seal_transit.tls_ca_cert != "" %}
+  tls_ca_cert = "{{ vault_configuration_seal_transit.tls_ca_cert }}"
+{% endif %}
+{% if vault_configuration_seal_transit.tls_client_cert is defined and vault_configuration_seal_transit.tls_client_cert != "" %}
+  tls_client_cert = "{{ vault_configuration_seal_transit.tls_client_cert }}"
+{% endif %}
+{% if vault_configuration_seal_transit.tls_client_key is defined and vault_configuration_seal_transit.tls_client_key != "" %}
+  tls_client_key = "{{ vault_configuration_seal_transit.tls_client_key }}"
+{% endif %}
+{% if vault_configuration_seal_transit.tls_server_name is defined and vault_configuration_seal_transit.tls_server_name != "" %}
+  tls_server_name = "{{ vault_configuration_seal_transit.tls_server_name }}"
+{% endif %}
+{% if vault_configuration_seal_transit.tls_skip_verify is defined and vault_configuration_seal_transit.tls_skip_verify %}
+  tls_skip_verify = true
+{% endif %}
+{% if vault_configuration_seal_transit.disabled is defined and vault_configuration_seal_transit.disabled %}
+  disabled = true
+{% endif %}
+}
+{% endif %}
+
 {% if vault_configuration_seal_azurekeyvault is defined %}
 seal "azurekeyvault" {
 {% if vault_configuration_seal_azurekeyvault.tenant_id is defined and vault_configuration_seal_azurekeyvault.tenant_id != "" %}
@@ -273,7 +314,7 @@ seal "azurekeyvault" {
   client_id = "{{ vault_configuration_seal_azurekeyvault.client_id }}"
 {% endif %}
 {% if vault_configuration_seal_azurekeyvault.client_secret is defined and vault_configuration_seal_azurekeyvault.client_secret != "" %}
-  client_secret = "{{ vault_configuration_seal_azurekeyvault.client_secret }}"
+  client_secret = "{{ vault_configuration../_seal_azurekeyvault.client_secret }}"
 {% endif %}
 {% if vault_configuration_seal_azurekeyvault.environment is defined and vault_configuration_seal_azurekeyvault.environment != "" %}
   environment = "{{ vault_configuration_seal_azurekeyvault.environment }}"

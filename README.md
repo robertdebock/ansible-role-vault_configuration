@@ -1,4 +1,4 @@
-# [Ansible role vault_configuration](#vault_configuration)
+# [Ansible role vault_configuration](#ansible-role-vault_configuration)
 
 Configure HashiCorp Vault on your system.
 
@@ -349,18 +349,17 @@ vault_configuration_storage_raft:
 #   disabled: false
 
 # Another Vault (with the Transit secrets engine) can be used to unseal Vault.
-# NOT IMPLEMENTED.
 # vault_configuration_seal_transit:
-#   address:
-#   token:
-#   key_name:
-#   mount_path:
-#   namespace:
+#   address: ""
+#   token: ""
+#   key_name: ""
+#   mount_path: ""
+#   namespace: ""
 #   disable_renewal:
-#   tls_ca_cert:
-#   tls_client_cert:
-#   tls_client_key:
-#   tls_server_name:
+#   tls_ca_cert: ""
+#   tls_client_cert: ""
+#   tls_client_key: ""
+#   tls_server_name: ""
 #   tls_skip_verify:
 #   disabled: false
 ```
@@ -382,7 +381,7 @@ The following roles are used to prepare a system. You can prepare your system in
 
 ## [Context](#context)
 
-This role is a part of many compatible roles. Have a look at [the documentation of these roles](https://robertdebock.nl/) for further information.
+This role is part of many compatible roles. Have a look at [the documentation of these roles](https://robertdebock.nl/) for further information.
 
 Here is an overview of related roles:
 ![dependencies](https://raw.githubusercontent.com/robertdebock/ansible-role-vault_configuration/png/requirements.png "Dependencies")
@@ -399,13 +398,13 @@ This role has been tested on these [container images](https://hub.docker.com/u/r
 |[Fedora](https://hub.docker.com/r/robertdebock/fedora)|41|
 |[Ubuntu](https://hub.docker.com/r/robertdebock/ubuntu)|noble, jammy|
 
-The minimum version of Ansible required is 2.12, tests have been done to:
+The minimum version of Ansible required is 2.12, tests have been done on:
 
 - The previous version.
 - The current version.
 - The development version.
 
-If you find issues, please register them in [GitHub](https://github.com/robertdebock/ansible-role-vault_configuration/issues).
+If you find issues, please register them on [GitHub](https://github.com/robertdebock/ansible-role-vault_configuration/issues).
 
 ## [License](#license)
 
