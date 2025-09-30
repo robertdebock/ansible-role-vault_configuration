@@ -314,7 +314,7 @@ seal "azurekeyvault" {
   client_id = "{{ vault_configuration_seal_azurekeyvault.client_id }}"
 {% endif %}
 {% if vault_configuration_seal_azurekeyvault.client_secret is defined and vault_configuration_seal_azurekeyvault.client_secret != "" %}
-  client_secret = "{{ vault_configuration../_seal_azurekeyvault.client_secret }}"
+  client_secret = "{{ vault_configuration_seal_azurekeyvault.client_secret }}"
 {% endif %}
 {% if vault_configuration_seal_azurekeyvault.environment is defined and vault_configuration_seal_azurekeyvault.environment != "" %}
   environment = "{{ vault_configuration_seal_azurekeyvault.environment }}"
