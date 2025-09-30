@@ -183,13 +183,13 @@
 - name: assert | Test vault_configuration_listeners.http_read_timeout
   ansible.builtin.assert:
     that:
-      - item.http_read_timeout is defined
+      - item.http_read_timeout is string
     quiet: true
   loop: "{{ vault_configuration_listeners }}"
   loop_control:
     label: "{{ item.address }}"
   when:
-    - item.http_read_timeout is string
+    - item.http_read_timeout is defined
     - item.type == "tcp"
 
 - name: assert | Test vault_configuration_listeners.http_write_timeout
