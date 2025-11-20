@@ -296,8 +296,8 @@ seal "transit" {
 {% if vault_configuration_seal_transit.tls_server_name is defined and vault_configuration_seal_transit.tls_server_name != "" %}
   tls_server_name = "{{ vault_configuration_seal_transit.tls_server_name }}"
 {% endif %}
-{% if vault_configuration_seal_transit.tls_skip_verify is defined and vault_configuration_seal_transit.tls_skip_verify %}
-  tls_skip_verify = true
+{% if vault_configuration_seal_transit.tls_skip_verify is defined %}
+  tls_skip_verify = {{ vault_configuration_seal_transit.tls_skip_verify | ternary('true', 'false') }}
 {% endif %}
 {% if vault_configuration_seal_transit.disabled is defined and vault_configuration_seal_transit.disabled %}
   disabled = true
