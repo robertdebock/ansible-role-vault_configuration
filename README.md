@@ -79,8 +79,8 @@ vault_configuration_tls_directory: "/opt/vault/tls"
 # Values used below are taken from: https://developer.hashicorp.com/vault/docs/configuration
 vault_configuration_max_lease_ttl: "768h"
 vault_configuration_default_lease_ttl: "768h"
-vault_configuration_api_addr: "https://{{ ansible_fqdn }}:8200"
-vault_configuration_cluster_addr: "https://{{ ansible_fqdn }}:8201"
+vault_configuration_api_addr: "https://{{ ansible_facts['fqdn'] }}:8200"
+vault_configuration_cluster_addr: "https://{{ ansible_facts['fqdn'] }}:8201"
 vault_configuration_disable_cache: false
 vault_configuration_disable_mlock: true
 vault_configuration_disable_clustering: false
@@ -193,7 +193,7 @@ vault_configuration_listeners:
 # Values used below are taken from: https://developer.hashicorp.com/vault/docs/configuration/storage/raft
 vault_configuration_storage_raft:
   path: "/opt/vault/data"
-  node_id: "{{ ansible_hostname }}"
+  node_id: "{{ ansible_facts['hostname'] }}"
   performance_multiplier: 0
   trailing_logs: 10000
   snapshot_threshold: 8192
